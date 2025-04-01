@@ -1,5 +1,5 @@
 # Eventify
-This project is an event management system that allows users to browse available events, make reservations, and cancel their bookings.s. 
+This project is an event management system that allows users to browse available events, make reservations, and cancel their bookings.
 
 🔹 Tech Stack
 - Back-end: Spring Boot + Spring Security (JWT)
