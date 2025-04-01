@@ -1,6 +1,7 @@
 # Eventify
 This project is an event management system that allows users to browse available events, make reservations, and cancel their bookings. This repository is a group project in the course of "Special Topics in Web Programming"
 
+
 🔹 Tech Stack
 - Back-end: Spring Boot + Spring Security (JWT)
 - Front-end: React + React Router
