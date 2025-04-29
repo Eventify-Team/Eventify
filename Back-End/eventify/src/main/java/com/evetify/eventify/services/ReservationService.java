@@ -34,6 +34,11 @@ public class ReservationService {
         return (ArrayList<Reservation>) reservationRepository.findAll();
     }
 
+    //Συνδρομή Κυριάκου
+    public ArrayList<Reservation> getAllReservationsForEvent(Long eventId){
+        return null;
+    }
+
     public Reservation addReservation(Reservation res){
         reservationRepository.save(res);
         return res;

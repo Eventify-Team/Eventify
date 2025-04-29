@@ -26,6 +26,12 @@ public class ReservationController {
         return list;
     }
 
+    @GetMapping("/getAllReservationsForEvent")
+    public ArrayList<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
+        ArrayList<Reservation> list = reservationService.getAllReservationsForEvent(eventId);
+        return list;
+    }
+
     @PostMapping
     public Reservation addReservation(@RequestBody Reservation reservation){
         Reservation res = reservationService.addReservation(reservation);
