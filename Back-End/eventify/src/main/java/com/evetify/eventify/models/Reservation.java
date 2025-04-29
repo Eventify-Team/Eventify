@@ -16,4 +16,6 @@ public class Reservation extends Attendance{
         this.date = date;
     }
 
+
+
 }
