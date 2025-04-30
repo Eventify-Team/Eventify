@@ -1,0 +1,55 @@
+package com.evetify.eventify.controllers;
+
+import com.evetify.eventify.models.Event;
+import com.evetify.eventify.services.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.xml.crypto.Data;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping("/event")
+public class EventController {
+    @Autowired
+    EventService eventService;
+
+    @GetMapping("/getallevents")
+    public List<Event> getAllEvents(){
+        List<Event> events = eventService.getAllEvents();
+        return events;
+    }
+
+    @GetMapping("/getevent")
+    public Event getEvent(@RequestParam Long id){
+        Event event = eventService.getEvent(id);
+        return event;
+    }
+
+    @DeleteMapping()
+    public List<Event> deleteEvent(@RequestParam Long id){
+        List<Event> events = eventService.removeEvent(id);
+        return events;
+    }
+
+    @PostMapping()
+    public Event updateEvent (@RequestParam Long id, @RequestParam (required = false) String name,
+                              @RequestParam (required = false) String description,
+                              @RequestParam (required = false) Integer duration,
+                              @RequestParam (required = false) String location,
+                              @RequestParam (required = false) Integer capacity,
+                              @RequestParam (required = false) Date date,
+                              @RequestParam (required = false) Double fee){
+        Event event = eventService.updateEvent(id, name, description, duration, location, capacity, date, fee);
+        return event;
+    }
+    @GetMapping("geteventwithname")
+    public List<Event> getEventWithName (@RequestParam String name){
+        List<Event> events = eventService.getEventWithName(name);
+        return events;
+    }
+
+
+}
