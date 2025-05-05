@@ -108,4 +108,41 @@ public class Event {
     public void setDate(Date date) {
         this.date = date;
     }
+
+
+    public ArrayList<Reservation> getAllReservationsForEvent(){
+        ArrayList<Reservation> res= new ArrayList<>();
+        for(Attendance att : attendances){
+            if(att instanceof Reservation)
+                res.add((Reservation) att);
+
+        }
+        return res;
+    }
+
+    public ArrayList<Rating> getAllRatingsForEvent(){
+        ArrayList<Rating> rat= new ArrayList<>();
+        for(Attendance att : attendances){
+            if(att instanceof Rating)
+                rat.add((Rating) att);
+
+
+        }
+        return rat;
+    }
+
+    public void addRatingForEvent(Rating rating){
+        attendances.add(rating);
+    }
+
+    public Boolean HasReservation(Long userId){
+        for(Attendance att: attendances){
+            if(att instanceof Reservation){
+                if(att.getUserId().equals(userId)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

@@ -1,13 +1,19 @@
 package com.evetify.eventify.controllers;
 
 import com.evetify.eventify.models.Event;
+import com.evetify.eventify.models.Rating;
+import com.evetify.eventify.models.Reservation;
 import com.evetify.eventify.models.User;
 import com.evetify.eventify.repositories.UserRepository;
+import com.evetify.eventify.services.EventService;
+import com.evetify.eventify.services.RatingService;
+import com.evetify.eventify.services.ReservationService;
 import com.evetify.eventify.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -16,6 +22,15 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ReservationService reservationService;
+
+    @Autowired
+    EventService eventService;
+
+    @Autowired
+    RatingService ratingService;
 
     @PostMapping
     public void addUser(@RequestBody User user){
@@ -35,6 +50,35 @@ public class UserController {
                            @RequestParam (required = false) String password){
         User user = userService.updateUser(id, name, surname, username, email, password);
         return user;
+
+    }
+
+    @PostMapping
+    public Reservation addReservation(@RequestBody Reservation reservation){
+        Reservation res = reservationService.addReservation(reservation);
+        return res;
+    }
+
+    @DeleteMapping()
+    public void removeResevation(@RequestParam Long id){
+        reservationService.removeReservation(id);
+    }
+
+    @GetMapping("/getevent")
+    public Event getEvent(@RequestParam Long id){
+        Event event = eventService.getEvent(id);
+        return event;
+    }
+
+    @GetMapping("/getallevents")
+    public List<Event> getAllEvents(){
+        List<Event> events = eventService.getAllEvents();
+        return events;
+    }
+
+    @PostMapping()
+    public void addRatingForEvent(@RequestBody Rating rating){
+        reservationService.addRatingForEvent(rating);
 
     }
 }
