@@ -28,23 +28,7 @@ public class EventController {
         return event;
     }
 
-    @DeleteMapping()
-    public List<Event> deleteEvent(@RequestParam Long id){
-        List<Event> events = eventService.removeEvent(id);
-        return events;
-    }
 
-    @PostMapping()
-    public Event updateEvent (@RequestParam Long id, @RequestParam (required = false) String name,
-                              @RequestParam (required = false) String description,
-                              @RequestParam (required = false) Integer duration,
-                              @RequestParam (required = false) String location,
-                              @RequestParam (required = false) Integer capacity,
-                              @RequestParam (required = false) Date date,
-                              @RequestParam (required = false) Double fee){
-        Event event = eventService.updateEvent(id, name, description, duration, location, capacity, date, fee);
-        return event;
-    }
     @GetMapping("geteventwithname")
     public List<Event> getEventWithName (@RequestParam String name){
         List<Event> events = eventService.getEventWithName(name);

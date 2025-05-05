@@ -1,6 +1,8 @@
 package com.evetify.eventify.controllers;
 
+import com.evetify.eventify.models.Event;
 import com.evetify.eventify.models.Reservation;
+import com.evetify.eventify.services.EventService;
 import com.evetify.eventify.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,9 @@ public class ReservationController {
 
     @Autowired ReservationService reservationService;
 
+    @Autowired
+    EventService eventService;
+
     @GetMapping("/getReservation")
     public Reservation getReservation(@RequestParam Long id){
         return reservationService.getReservation(id);
@@ -28,7 +33,8 @@ public class ReservationController {
 
     @GetMapping("/getAllReservationsForEvent")
     public ArrayList<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
-        ArrayList<Reservation> list = reservationService.getAllReservationsForEvent(eventId);
+        Event event = eventService.getEvent(eventId);
+        ArrayList<Reservation> list = event.getAllReservationsForEvent();
         return list;
     }
 
@@ -42,6 +48,8 @@ public class ReservationController {
     public void removeResevation(@RequestParam Long id){
         reservationService.removeReservation(id);
     }
+
+
 
 
 }

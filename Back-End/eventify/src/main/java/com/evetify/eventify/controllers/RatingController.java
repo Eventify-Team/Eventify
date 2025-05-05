@@ -1,5 +1,7 @@
 package com.evetify.eventify.controllers;
 
+import com.evetify.eventify.models.Event;
+import com.evetify.eventify.services.EventService;
 import com.evetify.eventify.services.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ public class RatingController {
     @Autowired
     RatingService ratingService;
 
+    @Autowired
+    EventService eventService;
+
     @GetMapping("/getRating")
     public Rating getRating(@RequestParam Long id ){
         return ratingService.getRating(id);
@@ -21,7 +26,8 @@ public class RatingController {
 
     @GetMapping("/getAllRatingsForEvent")
     public ArrayList<Rating> getRatingsForEvent(@RequestParam Long eventId){
-        return ratingService.getRatingsForEvent(eventId);
+        Event event = eventService.getEvent(eventId);
+        return event.getAllRatingsForEvent();
     }
 
     @PostMapping

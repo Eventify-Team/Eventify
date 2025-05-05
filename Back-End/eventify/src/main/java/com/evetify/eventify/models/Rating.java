@@ -8,7 +8,7 @@ public class Rating extends Attendance{
     private int score;
 
     public Rating(Long userId, Long eventId, int score) {
-        super( userId, eventId);
+        super(userId, eventId);
         this.score = score;
     }
 }

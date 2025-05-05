@@ -31,11 +31,6 @@ public class RatingService {
 
     }
 
-    //Χρειαζεται service Κυριακου
-    public ArrayList<Rating> getRatingsForEvent(Long eventId) {
-        return null;
-    }
-
 
     public Rating addRating(Rating rating) {
         ratingRepository.save(rating);
@@ -45,4 +40,6 @@ public class RatingService {
     public void removeRating(Long id){
        ratingRepository.deleteById(id);
     }
+
+
 }
