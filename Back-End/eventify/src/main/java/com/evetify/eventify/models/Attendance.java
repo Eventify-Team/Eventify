@@ -1,18 +1,23 @@
 package com.evetify.eventify.models;
 
 import jakarta.persistence.*;
-
+@MappedSuperclass
 public abstract class Attendance {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name="UserId", referencedColumnName = "id")
     protected Long userId;
     @ManyToOne
     @JoinColumn(name="EventId", referencedColumnName = "id")
     protected Long eventId;
+    */
+    @Column(name = "UserId")
+    private Long userId;
 
+    @Column(name = "EventId")
+    private Long eventId;
     public Attendance(Long userId, Long eventId) {
         this.userId = userId;
         this.eventId = eventId;
