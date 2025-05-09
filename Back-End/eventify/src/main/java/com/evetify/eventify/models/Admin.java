@@ -62,7 +62,6 @@ public class Admin {
         return events;
     }
 
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
-    }
+
+    public void addEvent(Event event){ events.add(event);}
 }

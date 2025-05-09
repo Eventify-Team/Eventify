@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 @Entity
 public class Event {
@@ -19,9 +20,7 @@ public class Event {
     private double fee;
     @OneToMany(mappedBy = "eventId")
     private ArrayList<Attendance> attendances = new ArrayList<>();
-    @ManyToOne
-    @JoinColumn(name="AdminID", referencedColumnName = "id")
-    private Long adminId;
+
 
     public Event(String name, String description, int duration, String location, int capacity,Date aDate, double fee) {
         this.name = name;
@@ -97,9 +96,6 @@ public class Event {
         return attendances;
     }
 
-    public void setAttendances(ArrayList<Attendance> attendances) {
-        this.attendances = attendances;
-    }
 
     public Date getDate() {
         return date;
@@ -110,39 +106,28 @@ public class Event {
     }
 
 
-    public ArrayList<Reservation> getAllReservationsForEvent(){
-        ArrayList<Reservation> res= new ArrayList<>();
+    public int getAllReservationsForEvent(){
+        int total = 0;
         for(Attendance att : attendances){
-            if(att instanceof Reservation)
-                res.add((Reservation) att);
+            if(att.checkReservation())
+                total++;
 
         }
-        return res;
+        return total;
     }
 
-    public ArrayList<Rating> getAllRatingsForEvent(){
-        ArrayList<Rating> rat= new ArrayList<>();
+    public HashMap<String,Integer> getAllRatingsForEvent(){
+        HashMap<String,Integer> ratings= new HashMap<>();
         for(Attendance att : attendances){
-            if(att instanceof Rating)
-                rat.add((Rating) att);
-
-
+            if(att.getRating()!=null)
+                ratings.put(att.getUsername(),att.getRating());
         }
-        return rat;
+        return ratings;
     }
 
-    public void addRatingForEvent(Rating rating){
-        attendances.add(rating);
-    }
 
-    public Boolean HasReservation(Long userId){
-        for(Attendance att: attendances){
-            if(att instanceof Reservation){
-                if(att.getUserId().equals(userId)){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+
+    public void addAttendance(Attendance a){attendances.add(a);}
+
+
 }
