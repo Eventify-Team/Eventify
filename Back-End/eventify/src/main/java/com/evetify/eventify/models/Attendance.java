@@ -1,26 +1,34 @@
 package com.evetify.eventify.models;
 
 import jakarta.persistence.*;
-@MappedSuperclass
-public abstract class Attendance {
+
+import java.time.LocalDate;
+
+@Entity
+public class Attendance {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    /*@ManyToOne
+    @ManyToOne
     @JoinColumn(name="UserId", referencedColumnName = "id")
-    protected Long userId;
+    private User user;
     @ManyToOne
     @JoinColumn(name="EventId", referencedColumnName = "id")
-    protected Long eventId;
-    */
-    @Column(name = "UserId")
-    private Long userId;
+    private Event event;
 
-    @Column(name = "EventId")
-    private Long eventId;
-    public Attendance(Long userId, Long eventId) {
-        this.userId = userId;
-        this.eventId = eventId;
+    @OneToOne
+    private Rating rating;
+
+    @OneToOne
+    private Reservation reservation;
+    public Attendance(User user, Event event) {
+        this.user= user;
+        this.event = event;
+        this.reservation = new Reservation(LocalDate.now());
+        this.rating = new Rating(null);
+    }
+    public Attendance() {
+
     }
 
     public Long getId() {
@@ -32,18 +40,19 @@ public abstract class Attendance {
     }
 
     public Long getUserId() {
-        return userId;
+        return user.getId();
     }
+    public String getUsername(){return user.getUsername();}
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public Long getEventId() {
-        return eventId;
+        return event.getId();
     }
 
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
+    public Integer getRating(){return rating.getRating();}
+    public void setRating(Integer score){rating.setRating(score);}
+    public boolean checkReservation(){return reservation.isValid();}
+    public void cancelReservation(){reservation.setValid(false);}
+
+
 }

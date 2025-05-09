@@ -83,4 +83,20 @@ public class User {
     public void setAttendances(ArrayList<Attendance> attendances) {
         this.attendances = attendances;
     }
+
+    public void addAttendance(Attendance a){
+        attendances.add(a);
+    }
+    public void addRatingForEvent(Long eventId, Integer score){
+        for(Attendance att: attendances){
+            if(att.getEventId().equals(eventId))
+                att.setRating(score);
+        }
+    }
+    public void cancelReservation(Long eventId){
+        for(Attendance att: attendances){
+            if(att.getEventId().equals(eventId))
+                attendances.remove(att);
+        }
+    }
 }

@@ -1,19 +1,28 @@
 package com.evetify.eventify.models;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
-public class Reservation extends Attendance{
+public class Reservation {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
     private boolean valid;
-    private Date date;
+    private LocalDate date;
 
-    public Reservation(Long userId, Long eventId, boolean valid, Date date) {
-        super(userId, eventId);
-        this.valid = valid;
+    public Reservation(LocalDate date) {
+        this.valid = true;
         this.date = date;
+    }
+    public Reservation() {
+
     }
 
     public boolean isValid() {
@@ -24,16 +33,13 @@ public class Reservation extends Attendance{
         this.valid = valid;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    @Override
-    public Long getUserId() {
-        return super.getUserId();
-    }
+
 }
