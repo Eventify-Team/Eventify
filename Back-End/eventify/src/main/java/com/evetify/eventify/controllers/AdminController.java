@@ -5,10 +5,8 @@ import com.evetify.eventify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.*;
 
 @RestController
 @RequestMapping("/admin")
@@ -121,15 +119,14 @@ public class AdminController {
 
     @GetMapping("/getAllReservationsForEvent")
     public ArrayList<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
-        Event event = eventService.getEvent(eventId);
-        ArrayList<Reservation> list = event.getAllReservationsForEvent();
-        return list;
+        ArrayList<Reservation> reservations = reservationService.getAllReservationsForEvent(eventId);
+        return reservations;
     }
 
     @GetMapping("/getAllRatingsForEvent")
-    public ArrayList<Rating> getRatingsForEvent(@RequestParam Long eventId){
-        Event event = eventService.getEvent(eventId);
-        return event.getAllRatingsForEvent();
+    public HashMap<String, Integer> getRatingsForEvent(@RequestParam Long eventId){
+        HashMap<String, Integer> ratings = eventService.getAllRatingsForEvent(eventId);
+        return ratings;
     }
 
     @GetMapping("/getUsersForEvent")

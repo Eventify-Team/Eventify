@@ -1,7 +1,6 @@
 package com.evetify.eventify.models;
-
-import jakarta.persistence.*;
-
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
 import java.util.ArrayList;
 
 @Entity

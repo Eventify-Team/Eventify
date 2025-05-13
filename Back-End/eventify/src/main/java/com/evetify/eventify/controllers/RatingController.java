@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.evetify.eventify.models.Rating;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.logging.Handler;
 
 @Controller
 @RequestMapping("/rating")
@@ -25,9 +27,8 @@ public class RatingController {
     }
 
     @GetMapping("/getAllRatingsForEvent")
-    public ArrayList<Rating> getRatingsForEvent(@RequestParam Long eventId){
-        Event event = eventService.getEvent(eventId);
-        return event.getAllRatingsForEvent();
+    public HashMap<String, Integer> getRatingsForEvent(@RequestParam Long eventId){
+        return eventService.getAllRatingsForEvent(eventId);
     }
 
     @PostMapping

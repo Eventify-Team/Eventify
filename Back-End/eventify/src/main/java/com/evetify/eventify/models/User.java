@@ -1,7 +1,6 @@
 package com.evetify.eventify.models;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
@@ -84,19 +83,6 @@ public class User {
         this.attendances = attendances;
     }
 
-    public void addAttendance(Attendance a){
-        attendances.add(a);
-    }
-    public void addRatingForEvent(Long eventId, Integer score){
-        for(Attendance att: attendances){
-            if(att.getEventId().equals(eventId))
-                att.setRating(score);
-        }
-    }
-    public void cancelReservation(Long eventId){
-        for(Attendance att: attendances){
-            if(att.getEventId().equals(eventId))
-                attendances.remove(att);
-        }
-    }
+
+
 }

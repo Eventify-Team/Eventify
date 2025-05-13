@@ -1,21 +1,22 @@
 package com.evetify.eventify.services;
 
+import com.evetify.eventify.models.Attendance;
 import com.evetify.eventify.models.Event;
+import com.evetify.eventify.repositories.AttendanceRepository;
 import com.evetify.eventify.repositories.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class EventService {
     @Autowired
     EventRepository eventRepository;
+
 
     public ArrayList<Event> getAllEvents(){
         return (ArrayList<Event>) eventRepository.findAll();
@@ -70,6 +71,42 @@ public class EventService {
         return eventRepository.findByName(name);
     }
 
+    public int getNumberReservationsForEvent(Long eventId){
+        int total = 0;
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if(!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        ArrayList<Attendance> attendances = event.getAttendances();
+        for(Attendance att : attendances){
+            if(att.getReservation().isValid())
+                total++;
+        }
+        return total;
+    }
+    public HashMap<String,Integer> getAllRatingsForEvent(Long eventId){
+        HashMap<String,Integer> ratings= new HashMap<>();
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if(!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        ArrayList<Attendance> attendances = event.getAttendances();
+        for(Attendance att : attendances){
+            if(att.getRating()!=null)
+                ratings.put(att.getUsername(),att.getRating());
+        }
+        eventRepository.save(event);
+        return ratings;
+    }
 
+    public void addAttendance(Long id, Attendance a){
+        Optional<Event> optionalEvent = eventRepository.findById(id);
+        if(!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        ArrayList<Attendance> attendances = event.getAttendances();
+        attendances.add(a);
+        eventRepository.save(event);
+    }
 
 }

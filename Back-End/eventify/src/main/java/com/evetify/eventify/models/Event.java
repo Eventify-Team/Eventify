@@ -1,7 +1,6 @@
 package com.evetify.eventify.models;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -104,30 +103,6 @@ public class Event {
     public void setDate(Date date) {
         this.date = date;
     }
-
-
-    public int getAllReservationsForEvent(){
-        int total = 0;
-        for(Attendance att : attendances){
-            if(att.checkReservation())
-                total++;
-
-        }
-        return total;
-    }
-
-    public HashMap<String,Integer> getAllRatingsForEvent(){
-        HashMap<String,Integer> ratings= new HashMap<>();
-        for(Attendance att : attendances){
-            if(att.getRating()!=null)
-                ratings.put(att.getUsername(),att.getRating());
-        }
-        return ratings;
-    }
-
-
-
-    public void addAttendance(Attendance a){attendances.add(a);}
 
 
 }
