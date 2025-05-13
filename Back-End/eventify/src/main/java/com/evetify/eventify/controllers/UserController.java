@@ -1,9 +1,6 @@
 package com.evetify.eventify.controllers;
 
-import com.evetify.eventify.models.Event;
-import com.evetify.eventify.models.Rating;
-import com.evetify.eventify.models.Reservation;
-import com.evetify.eventify.models.User;
+import com.evetify.eventify.models.*;
 import com.evetify.eventify.repositories.UserRepository;
 import com.evetify.eventify.services.EventService;
 import com.evetify.eventify.services.RatingService;
@@ -77,8 +74,17 @@ public class UserController {
     }
 
     @PostMapping()
-    public void addRatingForEvent(@RequestBody Rating rating){
-        reservationService.addRatingForEvent(rating);
+    public void addAttendance(@RequestParam Long userId, @RequestBody Attendance attendance){
+        userService.addAttendance(userId, attendance);
+    }
 
+    @PostMapping()
+    public void addRatingForEvent (@RequestParam Long userId, @RequestParam Long eventId, @RequestParam Integer score){
+        userService.addRatingForEvent(userId, eventId, score);
+    }
+
+    @PostMapping()
+    public void cancelReservation (@RequestParam Long userId, @RequestParam Long eventId){
+        userService.cancelReservation(userId, eventId);
     }
 }

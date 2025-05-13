@@ -1,7 +1,9 @@
 package com.evetify.eventify.services;
 
+import com.evetify.eventify.models.Attendance;
 import com.evetify.eventify.models.Event;
 import com.evetify.eventify.models.User;
+import com.evetify.eventify.repositories.EventRepository;
 import com.evetify.eventify.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,20 +17,22 @@ import java.util.Optional;
 @Service
 public class UserService {
 
-    @Autowired UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    EventRepository eventRepository;
 
 
-
-    public User addUser(User user){
+    public User addUser(User user) {
         userRepository.save(user);
         return user;
     }
 
-    public List<User> RemoveUser(Long id){
+    public List<User> RemoveUser(Long id) {
         Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             userRepository.deleteById(id);
-        }else{
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!");
         }
 
@@ -36,41 +40,91 @@ public class UserService {
 
     }
 
-    public User updateUser(Long id, String name, String surname, String username, String email, String password){
+    public User updateUser(Long id, String name, String surname, String username, String email, String password) {
         Optional<User> user = userRepository.findById(id);
-        if(!user.isPresent())
+        if (!user.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found!");
         User usr = user.get();
-        if(name != null)
+        if (name != null)
             usr.setName(name);
-        if(surname != null)
+        if (surname != null)
             usr.setSurname(surname);
-        if(username != null)
+        if (username != null)
             usr.setUsername(username);
-        if(email != null)
+        if (email != null)
             usr.setEmail(email);
-        if(password != null)
+        if (password != null)
             usr.setPassword(password);
 
         userRepository.save(usr);
         return usr;
     }
 
-    public User getUser(Long id){
+    public User getUser(Long id) {
         Optional<User> user = userRepository.findById(id);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             return user.get();
-        }else{
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!");
         }
     }
 
-    public ArrayList<User> getAllUsers(){
+    public ArrayList<User> getAllUsers() {
         return (ArrayList<User>) userRepository.findAll();
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
+    public void addAttendance(Long id, Attendance a) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (!optionalUser.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+        User user = optionalUser.get();
+        ArrayList<Attendance> attendances = user.getAttendances();
+        attendances.add(a);
+
+        userRepository.save(user);
+    }
+
+    public void addRatingForEvent(Long userId, Long eventId, Integer score) {
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        boolean flag = false;
+        if (!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        ArrayList<Attendance> attendances = event.getAttendances();
+        for (Attendance att : attendances) {
+            if (att.getUserId().equals(userId)) {
+                flag = true;
+                if (att.getEventId().equals(eventId))
+                    att.setRating(score);
+            }
+        }
+        if(!flag)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+        eventRepository.save(event);
+    }
+
+    public void cancelReservation(Long userId, Long eventId) {
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        boolean flag = false;
+        if (!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        ArrayList<Attendance> attendances = event.getAttendances();
+        for (Attendance att : attendances) {
+            if (att.getUserId().equals(userId)) {
+                flag = true;
+                if (att.getEventId().equals(eventId)) {
+                    att.getReservation().setValid(false);
+                    attendances.remove(att);
+                }
+            }
+        }
+        if(!flag)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+        eventRepository.save(event);
+    }
 }

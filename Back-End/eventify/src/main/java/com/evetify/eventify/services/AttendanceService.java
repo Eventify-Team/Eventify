@@ -1,6 +1,7 @@
 package com.evetify.eventify.services;
 
 import com.evetify.eventify.models.Attendance;
+import com.evetify.eventify.models.Reservation;
 import com.evetify.eventify.repositories.AttendanceRepository;
 import com.evetify.eventify.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,13 @@ public class AttendanceService {
     public ArrayList<Attendance> getAttForUser(Long userId) {
         return  attendanceRepository.findByUser(userId);
     }
+
+    public boolean checkReservation(Long attendanceId){
+        Optional<Attendance> att = attendanceRepository.findById(attendanceId);
+        if(!att.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+        Attendance attendance = att.get();
+        return  attendance.getReservation().isValid();
+    }
+
 }

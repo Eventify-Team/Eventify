@@ -28,9 +28,7 @@ public class RatingService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Not Found");
         }
-
     }
-
 
     public Rating addRating(Rating rating) {
         ratingRepository.save(rating);

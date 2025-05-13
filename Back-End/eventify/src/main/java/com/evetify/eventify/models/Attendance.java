@@ -1,8 +1,8 @@
 package com.evetify.eventify.models;
-
-import jakarta.persistence.*;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 public class Attendance {
@@ -49,10 +49,16 @@ public class Attendance {
         return event.getId();
     }
 
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
     public Integer getRating(){return rating.getRating();}
     public void setRating(Integer score){rating.setRating(score);}
-    public boolean checkReservation(){return reservation.isValid();}
-    public void cancelReservation(){reservation.setValid(false);}
 
 
 }
