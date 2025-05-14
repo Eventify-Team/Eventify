@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,8 +44,8 @@ public class ReservationService {
                     "Not Found");
         }
     }
-    public ArrayList<Reservation> getAllReservations(){
-        return (ArrayList<Reservation>) reservationRepository.findAll();
+    public List<Reservation> getAllReservations(){
+        return (List<Reservation>) reservationRepository.findAll();
     }
 
 
@@ -53,13 +54,13 @@ public class ReservationService {
         return res;
     }
 
-    public ArrayList<Reservation> getAllReservationsForEvent(Long eventId){
+    public List<Reservation> getAllReservationsForEvent(Long eventId){
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();
-        ArrayList<Attendance> attendances = event.getAttendances();
-        ArrayList<Reservation> reservations = new ArrayList<>();
+        List<Attendance> attendances = event.getAttendances();
+        List<Reservation> reservations = new ArrayList<>();
         for(Attendance att: attendances){
             reservations.add(att.getReservation());
         }
@@ -70,12 +71,13 @@ public class ReservationService {
         reservationRepository.deleteById(id);
     }
 
-    public ArrayList<User> getAllUsersForEvent(Long eventId){
-        ArrayList<User> users = new ArrayList<>();
+    public List<User> getAllUsersForEvent(Long eventId){
+        List<User> users = new ArrayList<>();
         Optional<Event> eventopt = eventRepository.findById(eventId);
         if(eventopt.isPresent()){
             Event event = eventopt.get();
-            ArrayList<Attendance> attendances = event.getAttendances();
+
+            List<Attendance> attendances = event.getAttendances();
             for(Attendance att : attendances){
                 Long usrId = att.getUserId();
                 Optional<User> user = userRepository.findById(usrId);

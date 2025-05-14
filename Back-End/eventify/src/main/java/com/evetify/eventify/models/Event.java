@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -17,8 +18,8 @@ public class Event {
     private int capacity;
     private Date date;
     private double fee;
-    @OneToMany(mappedBy = "eventId")
-    private ArrayList<Attendance> attendances = new ArrayList<>();
+    @OneToMany(mappedBy = "event")
+    private List<Attendance> attendances;
 
 
     public Event(String name, String description, int duration, String location, int capacity,Date aDate, double fee) {
@@ -91,7 +92,7 @@ public class Event {
         this.fee = fee;
     }
 
-    public ArrayList<Attendance> getAttendances() {
+    public List<Attendance> getAttendances() {
         return attendances;
     }
 

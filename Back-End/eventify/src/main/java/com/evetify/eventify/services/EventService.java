@@ -18,8 +18,8 @@ public class EventService {
     EventRepository eventRepository;
 
 
-    public ArrayList<Event> getAllEvents(){
-        return (ArrayList<Event>) eventRepository.findAll();
+    public List<Event> getAllEvents(){
+        return (List<Event>) eventRepository.findAll();
     }
 
     public Event getEvent(Long id) {
@@ -77,7 +77,7 @@ public class EventService {
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();
-        ArrayList<Attendance> attendances = event.getAttendances();
+        List<Attendance> attendances = event.getAttendances();
         for(Attendance att : attendances){
             if(att.getReservation().isValid())
                 total++;
@@ -90,7 +90,7 @@ public class EventService {
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();
-        ArrayList<Attendance> attendances = event.getAttendances();
+        List<Attendance> attendances = event.getAttendances();
         for(Attendance att : attendances){
             if(att.getRating()!=null)
                 ratings.put(att.getUsername(),att.getRating());
@@ -104,7 +104,7 @@ public class EventService {
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();
-        ArrayList<Attendance> attendances = event.getAttendances();
+        List<Attendance> attendances = event.getAttendances();
         attendances.add(a);
         eventRepository.save(event);
     }
