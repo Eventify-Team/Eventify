@@ -10,10 +10,10 @@ public class Attendance {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name="UserId", referencedColumnName = "id")
+    @JoinColumn(name="UserId")
     private User user;
     @ManyToOne
-    @JoinColumn(name="EventId", referencedColumnName = "id")
+    @JoinColumn(name="EventId")
     private Event event;
 
     @OneToOne

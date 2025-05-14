@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,15 +30,15 @@ public class ReservationController {
     }
 
     @GetMapping("/getAllReservations")
-    public ArrayList<Reservation> getAllReservations(){
-        ArrayList<Reservation> list = reservationService.getAllReservations();
+    public List<Reservation> getAllReservations(){
+        List<Reservation> list = reservationService.getAllReservations();
         return list;
     }
 
     @GetMapping("/getAllReservationsForEvent")
-    public ArrayList<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
+    public List<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
         Event event = eventService.getEvent(eventId);
-        ArrayList<Reservation> reservations = reservationService.getAllReservationsForEvent(eventId);
+        List<Reservation> reservations = reservationService.getAllReservationsForEvent(eventId);
         return reservations;
     }
 
@@ -47,20 +48,14 @@ public class ReservationController {
         return res;
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     public void removeResevation(@RequestParam Long id){
         reservationService.removeReservation(id);
     }
 
-    @GetMapping("checkreservation")
+    @GetMapping("checkReservation")
     public boolean checkReservation(@RequestParam Long attendanceId){
         return attendanceService.checkReservation(attendanceId);
     }
-
-
-
-
-
-
 }
 

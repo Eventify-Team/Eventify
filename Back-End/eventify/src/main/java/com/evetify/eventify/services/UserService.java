@@ -69,8 +69,8 @@ public class UserService {
         }
     }
 
-    public ArrayList<User> getAllUsers() {
-        return (ArrayList<User>) userRepository.findAll();
+    public List<User> getAllUsers() {
+        return (List<User>) userRepository.findAll();
     }
 
     public User getUserByUsername(String username) {
@@ -82,7 +82,7 @@ public class UserService {
         if (!optionalUser.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
         User user = optionalUser.get();
-        ArrayList<Attendance> attendances = user.getAttendances();
+        List<Attendance> attendances = user.getAttendances();
         attendances.add(a);
 
         userRepository.save(user);
@@ -94,7 +94,7 @@ public class UserService {
         if (!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();
-        ArrayList<Attendance> attendances = event.getAttendances();
+        List<Attendance> attendances = event.getAttendances();
         for (Attendance att : attendances) {
             if (att.getUserId().equals(userId)) {
                 flag = true;
@@ -113,7 +113,7 @@ public class UserService {
         if (!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();
-        ArrayList<Attendance> attendances = event.getAttendances();
+        List<Attendance> attendances = event.getAttendances();
         for (Attendance att : attendances) {
             if (att.getUserId().equals(userId)) {
                 flag = true;

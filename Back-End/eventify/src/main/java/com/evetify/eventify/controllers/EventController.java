@@ -18,36 +18,36 @@ public class EventController {
     @Autowired
     EventService eventService;
 
-    @GetMapping("/getallevents")
+    @GetMapping("/getAllEvents")
     public List<Event> getAllEvents(){
         List<Event> events = eventService.getAllEvents();
         return events;
     }
 
-    @GetMapping("/getevent")
+    @GetMapping("/getEvent")
     public Event getEvent(@RequestParam Long id){
         Event event = eventService.getEvent(id);
         return event;
     }
 
 
-    @GetMapping("/geteventwithname")
+    @GetMapping("/getEventWithName")
     public List<Event> getEventWithName (@RequestParam String name){
         List<Event> events = eventService.getEventWithName(name);
         return events;
     }
 
-    @GetMapping("/getnumberreservationsforevent")
+    @GetMapping("/getNumberReservationsForEvent")
     public int getNumberReservationsForEvent(@RequestParam Long eventId){
         return eventService.getNumberReservationsForEvent(eventId);
     }
 
-    @GetMapping("/getallratingsforevent")
+    @GetMapping("/getAllRatingsForEvent")
     public HashMap<String, Integer> getAllRatingsForEvent(@RequestParam Long eventId){
         return eventService.getAllRatingsForEvent(eventId);
     }
 
-    @PostMapping("/addattendance")
+    @PostMapping("/addAttendance")
     public void AddAttendance(@RequestParam Long eventid, @RequestBody Attendance attendance) {
         eventService.addAttendance(eventid, attendance);
     }

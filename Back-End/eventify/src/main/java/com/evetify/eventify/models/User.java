@@ -2,6 +2,7 @@ package com.evetify.eventify.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -13,8 +14,8 @@ public class User {
     private String username;
     private String email;
     private String password;
-    @OneToMany(mappedBy = "userId")
-    private ArrayList<Attendance> attendances = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private List<Attendance> attendances;
 
     public User(String name, String surname, String username, String email, String password) {
         this.name = name;
@@ -75,11 +76,11 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<Attendance> getAttendances() {
+    public List<Attendance> getAttendances() {
         return attendances;
     }
 
-    public void setAttendances(ArrayList<Attendance> attendances) {
+    public void setAttendances(List<Attendance> attendances) {
         this.attendances = attendances;
     }
 

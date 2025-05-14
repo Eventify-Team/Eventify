@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,7 @@ public class AttendanceService {
         attendanceRepository.save(att);
     }
 
-    public ArrayList<Attendance> getAttForUser(Long userId) {
+    public List<Attendance> getAttForUser(Long userId) {
         return  attendanceRepository.findByUser(userId);
     }
 

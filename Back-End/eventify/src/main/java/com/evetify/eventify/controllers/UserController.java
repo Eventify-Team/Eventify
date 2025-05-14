@@ -34,12 +34,12 @@ public class UserController {
         userService.addUser(user);
     }
 
-    @DeleteMapping()
-    public void RemoveUser(@RequestParam Long id){
+    @DeleteMapping
+    public void removeUser(@RequestParam Long id){
         userService.RemoveUser(id);
     }
 
-    @PostMapping
+    @PutMapping
     public User updateUser(@RequestParam Long id, @RequestParam (required = false) String name,
                            @RequestParam (required = false) String surname,
                            @RequestParam (required = false) String username,
@@ -50,40 +50,40 @@ public class UserController {
 
     }
 
-    @PostMapping
+    @PostMapping("/addReservation")
     public Reservation addReservation(@RequestBody Reservation reservation){
         Reservation res = reservationService.addReservation(reservation);
         return res;
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/removeReservation")
     public void removeResevation(@RequestParam Long id){
         reservationService.removeReservation(id);
     }
 
-    @GetMapping("/getevent")
+    @GetMapping("/getEvent")
     public Event getEvent(@RequestParam Long id){
         Event event = eventService.getEvent(id);
         return event;
     }
 
-    @GetMapping("/getallevents")
+    @GetMapping("/getAllEvents")
     public List<Event> getAllEvents(){
         List<Event> events = eventService.getAllEvents();
         return events;
     }
 
-    @PostMapping()
+    @PostMapping("/addAttendance")
     public void addAttendance(@RequestParam Long userId, @RequestBody Attendance attendance){
         userService.addAttendance(userId, attendance);
     }
 
-    @PostMapping()
+    @PostMapping("/addRating")
     public void addRatingForEvent (@RequestParam Long userId, @RequestParam Long eventId, @RequestParam Integer score){
         userService.addRatingForEvent(userId, eventId, score);
     }
 
-    @PostMapping()
+    @DeleteMapping("/deleteReservation")
     public void cancelReservation (@RequestParam Long userId, @RequestParam Long eventId){
         userService.cancelReservation(userId, eventId);
     }

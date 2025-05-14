@@ -2,6 +2,7 @@ package com.evetify.eventify.models;
 import javax.persistence.*;
 import javax.persistence.GeneratedValue;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Admin {
@@ -11,10 +12,11 @@ public class Admin {
     private String name;
     private String password;
     private String email;
-    @OneToMany(mappedBy = "adminId")
-    private ArrayList<Event> events = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "admin_id")
+    private List<Event> events = new ArrayList<>();
 
-    public Admin(String name, String password, String email, ArrayList<Event> events) {
+    public Admin(String name, String password, String email, List<Event> events) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -57,7 +59,7 @@ public class Admin {
         this.email = email;
     }
 
-    public ArrayList<Event> getEvents() {
+    public List<Event> getEvents() {
         return events;
     }
 

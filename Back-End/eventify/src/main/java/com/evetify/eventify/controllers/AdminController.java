@@ -33,8 +33,8 @@ public class AdminController {
         adminService.addAdmin(admin);
     }
 
-    @PostMapping
-    public void RemoveAdmin(@RequestParam Long id){
+    @DeleteMapping
+    public void removeAdmin(@RequestParam Long id){
         adminService.RemoveAdmin(id);
     }
 
@@ -53,7 +53,7 @@ public class AdminController {
         return userService.getUserByUsername(username);
     }
 
-    @PostMapping
+    @PutMapping
     public Admin updateAdmin(@RequestParam Long id, @RequestParam (required = false) String name,
                            @RequestParam (required = false) String password,
                            @RequestParam (required = false) String email){
@@ -63,12 +63,12 @@ public class AdminController {
     }
 
 
-    @PostMapping
+    @PostMapping("/addEvent")
     public void addEvent(@RequestBody Event event){
         eventService.addEvent(event);
     }
 
-    @PostMapping()
+    @PutMapping("/updateEvent")
     public Event updateEvent (@RequestParam Long id, @RequestParam (required = false) String name,
                               @RequestParam (required = false) String description,
                               @RequestParam (required = false) Integer duration,
@@ -80,7 +80,7 @@ public class AdminController {
         return event;
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/deleteEvent")
     public List<Event> deleteEvent(@RequestParam Long id){
         List<Event> events = eventService.removeEvent(id);
         return events;
@@ -93,14 +93,14 @@ public class AdminController {
         return events;
     }
 
-    @GetMapping("/getevent")
+    @GetMapping("/getEvent")
     public Event getEvent(@RequestParam Long id){
         Event event = eventService.getEvent(id);
         return event;
     }
 
 
-    @GetMapping("geteventwithname")
+    @GetMapping("/getEventWithName")
     public List<Event> getEventWithName (@RequestParam String name){
         List<Event> events = eventService.getEventWithName(name);
         return events;
@@ -112,14 +112,14 @@ public class AdminController {
     }
 
     @GetMapping("/getAllReservations")
-    public ArrayList<Reservation> getAllReservations(){
-        ArrayList<Reservation> list = reservationService.getAllReservations();
+    public List<Reservation> getAllReservations(){
+        List<Reservation> list = reservationService.getAllReservations();
         return list;
     }
 
     @GetMapping("/getAllReservationsForEvent")
-    public ArrayList<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
-        ArrayList<Reservation> reservations = reservationService.getAllReservationsForEvent(eventId);
+    public List<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
+        List<Reservation> reservations = reservationService.getAllReservationsForEvent(eventId);
         return reservations;
     }
 
@@ -130,9 +130,7 @@ public class AdminController {
     }
 
     @GetMapping("/getUsersForEvent")
-    public ArrayList<User> getUsersForEvent(@RequestParam Long eventId){
+    public List<User> getUsersForEvent(@RequestParam Long eventId){
         return reservationService.getAllUsersForEvent(eventId);
     }
-
-
 }

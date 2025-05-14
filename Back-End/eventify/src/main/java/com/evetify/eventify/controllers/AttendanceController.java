@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/attendance")
@@ -24,7 +25,7 @@ public class AttendanceController {
         attendanceService.addAttendance(att);
     }
     @GetMapping
-    public ArrayList<Attendance> getAttendancesForUser(Long userId){
+    public List<Attendance> getAttendancesForUser(Long userId){
         return attendanceService.getAttForUser(userId);
     }
 }
