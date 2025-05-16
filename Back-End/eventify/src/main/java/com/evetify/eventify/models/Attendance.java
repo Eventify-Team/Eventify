@@ -16,7 +16,7 @@ public class Attendance {
     @JoinColumn(name="EventId")
     private Event event;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Rating rating;
 
     @OneToOne
@@ -25,7 +25,7 @@ public class Attendance {
         this.user= user;
         this.event = event;
         this.reservation = new Reservation(LocalDate.now());
-        this.rating = new Rating(null);
+        this.rating = new Rating(0);
     }
     public Attendance() {
 

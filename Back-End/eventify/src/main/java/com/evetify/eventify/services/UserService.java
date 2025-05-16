@@ -3,6 +3,7 @@ package com.evetify.eventify.services;
 import com.evetify.eventify.models.Attendance;
 import com.evetify.eventify.models.Event;
 import com.evetify.eventify.models.User;
+import com.evetify.eventify.repositories.AttendanceRepository;
 import com.evetify.eventify.repositories.EventRepository;
 import com.evetify.eventify.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,16 @@ public class UserService {
     EventRepository eventRepository;
 
 
+
     public User addUser(User user) {
         userRepository.save(user);
         return user;
     }
 
-    public List<User> RemoveUser(Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public List<User> RemoveUser(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
-            userRepository.deleteById(id);
+            userRepository.deleteById(userId);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!");
         }
@@ -40,8 +42,8 @@ public class UserService {
 
     }
 
-    public User updateUser(Long id, String name, String surname, String username, String email, String password) {
-        Optional<User> user = userRepository.findById(id);
+    public User updateUser(Long userId, String name, String surname, String username, String email, String password) {
+        Optional<User> user = userRepository.findById(userId);
         if (!user.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found!");
         User usr = user.get();
@@ -60,8 +62,8 @@ public class UserService {
         return usr;
     }
 
-    public User getUser(Long id) {
-        Optional<User> user = userRepository.findById(id);
+    public User getUser(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             return user.get();
         } else {
@@ -77,8 +79,8 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void addAttendance(Long id, Attendance a) {
-        Optional<User> optionalUser = userRepository.findById(id);
+    public void addAttendance(Long userId, Attendance a) {
+        Optional<User> optionalUser = userRepository.findById(userId);
         if (!optionalUser.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
         User user = optionalUser.get();

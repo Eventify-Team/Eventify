@@ -12,7 +12,6 @@ import java.util.*;
 @RequestMapping("/admin")
 public class AdminController {
 
-
     @Autowired
     AdminService adminService;
 
@@ -25,8 +24,6 @@ public class AdminController {
     @Autowired
     ReservationService reservationService;
 
-    @Autowired
-    RatingService ratingService;
 
     @PostMapping
     public void addAdmin(@RequestBody Admin admin){
@@ -87,7 +84,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/getallevents")
+    @GetMapping("/getAllEvents")
     public List<Event> getAllEvents(){
         List<Event> events = eventService.getAllEvents();
         return events;

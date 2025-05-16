@@ -1,9 +1,7 @@
 package com.evetify.eventify.services;
 
-import com.evetify.eventify.models.Attendance;
-import com.evetify.eventify.models.Reservation;
-import com.evetify.eventify.repositories.AttendanceRepository;
-import com.evetify.eventify.repositories.UserRepository;
+import com.evetify.eventify.models.*;
+import com.evetify.eventify.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +16,13 @@ public class AttendanceService {
 
     @Autowired
     AttendanceRepository attendanceRepository;
+    @Autowired
+    EventRepository eventRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    ReservationRepository reservationRepository;
+
 
     public void removeAttendance(Long attendanceId) {
         Optional<Attendance> att = attendanceRepository.findById(attendanceId);
@@ -27,8 +32,20 @@ public class AttendanceService {
         attendanceRepository.deleteById(attendanceId);
     }
 
-    public void addAttendance(Attendance att) {
-        attendanceRepository.save(att);
+    public void addAttendance(Long userId, Long eventId) {
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if(!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (!optionalUser.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+        User user = optionalUser.get();
+        Attendance attendance = new Attendance(user, event);
+        Reservation reservation = attendance.getReservation();
+        reservationRepository.save(reservation);
+        attendance.setReservation(reservation);
+        attendanceRepository.save(attendance);
     }
 
     public List<Attendance> getAttForUser(Long userId) {

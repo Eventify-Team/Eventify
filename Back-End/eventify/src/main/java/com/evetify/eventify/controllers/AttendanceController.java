@@ -16,16 +16,16 @@ public class AttendanceController {
     AttendanceService attendanceService;
 
     @DeleteMapping
-    public void deleteAttendance(Long attendanceId){
+    public void deleteAttendance(@RequestParam Long attendanceId){
         attendanceService.removeAttendance(attendanceId);
     }
 
     @PostMapping
-    public void addAttendance(@RequestBody Attendance att){
-        attendanceService.addAttendance(att);
+    public void addAttendance(@RequestParam Long userId, @RequestParam Long eventId){
+        attendanceService.addAttendance(userId,eventId);
     }
     @GetMapping
-    public List<Attendance> getAttendancesForUser(Long userId){
+    public List<Attendance> getAttendancesForUser(@RequestParam Long userId){
         return attendanceService.getAttForUser(userId);
     }
 }

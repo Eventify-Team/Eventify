@@ -22,18 +22,18 @@ public class EventService {
         return (List<Event>) eventRepository.findAll();
     }
 
-    public Event getEvent(Long id) {
-        Optional<Event> event = eventRepository.findById(id);
+    public Event getEvent(Long eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
         if(event.isPresent())
             return event.get();
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
     }
 
-    public List<Event> removeEvent(Long id) {
-        Optional<Event> event = eventRepository.findById(id);
+    public List<Event> removeEvent(Long eventId) {
+        Optional<Event> event = eventRepository.findById(eventId);
         if(!event.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
-        eventRepository.deleteById(id);
+        eventRepository.deleteById(eventId);
 
         return eventRepository.findAll();
     }
@@ -43,8 +43,8 @@ public class EventService {
         return event;
     }
 
-    public Event updateEvent(Long id, String name, String description, Integer duration, String location, Integer capacity, Date aDate, Double fee){
-        Optional<Event> optionalEvent = eventRepository.findById(id);
+    public Event updateEvent(Long eventId, String name, String description, Integer duration, String location, Integer capacity, Date aDate, Double fee){
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();
@@ -99,8 +99,8 @@ public class EventService {
         return ratings;
     }
 
-    public void addAttendance(Long id, Attendance a){
-        Optional<Event> optionalEvent = eventRepository.findById(id);
+    public void addAttendance(Long eventId, Attendance a){
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
         Event event = optionalEvent.get();

@@ -1,6 +1,8 @@
 package com.evetify.eventify.models;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +24,9 @@ public class Event {
     private List<Attendance> attendances;
 
 
-    public Event(String name, String description, int duration, String location, int capacity,Date aDate, double fee) {
+
+
+    public Event(String name, String description, int duration, String location, int capacity, Date aDate, double fee) {
         this.name = name;
         this.description = description;
         this.duration = duration;
