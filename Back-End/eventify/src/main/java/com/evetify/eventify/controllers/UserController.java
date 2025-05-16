@@ -2,10 +2,7 @@ package com.evetify.eventify.controllers;
 
 import com.evetify.eventify.models.*;
 import com.evetify.eventify.repositories.UserRepository;
-import com.evetify.eventify.services.EventService;
-import com.evetify.eventify.services.RatingService;
-import com.evetify.eventify.services.ReservationService;
-import com.evetify.eventify.services.UserService;
+import com.evetify.eventify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +25,9 @@ public class UserController {
 
     @Autowired
     RatingService ratingService;
+
+    @Autowired
+    AttendanceService attendanceService;
 
     @PostMapping
     public void addUser(@RequestBody User user){
@@ -72,10 +72,20 @@ public class UserController {
         List<Event> events = eventService.getAllEvents();
         return events;
     }
+//
+//    @PostMapping("/addAttendance")
+//    public void addAttendance(@RequestParam Long userId, @RequestBody Attendance attendance){
+//        userService.addAttendance(userId, attendance);
+//    }
 
     @PostMapping("/addAttendance")
-    public void addAttendance(@RequestParam Long userId, @RequestBody Attendance attendance){
-        userService.addAttendance(userId, attendance);
+    public void addAttendance(@RequestParam Long userId, @RequestParam Long eventId){
+        attendanceService.addAttendance(userId, eventId);
+    }
+
+    @GetMapping("/getAttendancesForUser")
+    public List<Attendance> getAttendancesForUser(@RequestParam Long userId){
+        return attendanceService.getAttForUser(userId);
     }
 
     @PostMapping("/addRating")
