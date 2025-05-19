@@ -25,7 +25,6 @@ public class Event {
 
 
 
-
     public Event(String name, String description, int duration, String location, int capacity, Date aDate, double fee) {
         this.name = name;
         this.description = description;
@@ -34,6 +33,7 @@ public class Event {
         this.capacity = capacity;
         this.date = aDate;
         this.fee = fee;
+        this.attendances = new ArrayList<>();
     }
 
     public Event(){
@@ -100,7 +100,13 @@ public class Event {
         return attendances;
     }
 
+    public void setAttendances(List<Attendance> attendances) {
+        this.attendances = attendances;
+    }
 
+    public void addAttendance(Attendance a){
+        attendances.add(a);
+    }
     public Date getDate() {
         return date;
     }

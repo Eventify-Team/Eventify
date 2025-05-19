@@ -22,6 +22,9 @@ public class AttendanceService {
     UserRepository userRepository;
     @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
+    EventService eventService;
+
 
 
     public void removeAttendance(Long attendanceId) {
@@ -46,6 +49,8 @@ public class AttendanceService {
         reservationRepository.save(reservation);
         attendance.setReservation(reservation);
         attendanceRepository.save(attendance);
+        eventService.addAttendance(eventId,attendance);
+
     }
 
     public List<Attendance> getAttForUser(Long userId) {

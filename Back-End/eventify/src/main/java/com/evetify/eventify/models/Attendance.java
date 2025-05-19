@@ -1,4 +1,6 @@
 package com.evetify.eventify.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.time.LocalDate;
@@ -13,7 +15,8 @@ public class Attendance {
     @JoinColumn(name="UserId")
     private User user;
     @ManyToOne
-    @JoinColumn(name="EventId")
+    @JoinColumn(name="EventId", referencedColumnName = "id")
+    @JsonIgnore
     private Event event;
 
     @OneToOne(cascade = CascadeType.PERSIST)
