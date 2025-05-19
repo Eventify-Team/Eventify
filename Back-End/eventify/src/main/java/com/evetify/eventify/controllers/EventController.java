@@ -25,15 +25,14 @@ public class EventController {
     }
 
     @GetMapping("/getEvent")
-    public Event getEvent(@RequestParam Long id){
-        Event event = eventService.getEvent(id);
+    public Event getEvent(@RequestParam Long eventId){
+        Event event = eventService.getEvent(eventId);
         return event;
     }
 
-
     @GetMapping("/getEventWithName")
-    public List<Event> getEventWithName (@RequestParam String name){
-        List<Event> events = eventService.getEventWithName(name);
+    public List<Event> getEventWithName (@RequestParam String eventName){
+        List<Event> events = eventService.getEventWithName(eventName);
         return events;
     }
 

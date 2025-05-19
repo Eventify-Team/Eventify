@@ -23,16 +23,25 @@ public class AttendanceService {
     @Autowired
     ReservationRepository reservationRepository;
     @Autowired
-    EventService eventService;
-
+    RatingRepository ratingRepository;
 
 
     public void removeAttendance(Long attendanceId) {
         Optional<Attendance> att = attendanceRepository.findById(attendanceId);
         if(!att.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
-
+        Attendance attendance = att.get();
         attendanceRepository.deleteById(attendanceId);
+        Long reservationId = attendance.getReservation().getId();
+        Long ratingId = attendance.getRat().getId();
+        ratingRepository.deleteById(ratingId);
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
+        if (!optionalReservation.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation Not Found");
+        Reservation reservation = optionalReservation.get();
+        reservation.setValid(false);
+        reservationRepository.save(reservation);
+
     }
 
     public void addAttendance(Long userId, Long eventId) {
@@ -49,20 +58,23 @@ public class AttendanceService {
         reservationRepository.save(reservation);
         attendance.setReservation(reservation);
         attendanceRepository.save(attendance);
-        eventService.addAttendance(eventId,attendance);
-
     }
 
-    public List<Attendance> getAttForUser(Long userId) {
-        return  attendanceRepository.findByUser(userId);
+    public List<Attendance> getAttendancesForUser(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (!optionalUser.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+        User user = optionalUser.get();
+        List<Attendance> attendances = user.getAttendances();
+        return attendances;
     }
 
     public boolean checkReservation(Long attendanceId){
         Optional<Attendance> att = attendanceRepository.findById(attendanceId);
         if(!att.isPresent())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation is cancelled");
         Attendance attendance = att.get();
-        return  attendance.getReservation().isValid();
+        return attendance.getReservation().isValid();
     }
 
 }

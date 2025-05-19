@@ -32,9 +32,9 @@ public class ReservationService {
 
 
 
-    public Reservation getReservation(Long id){
+    public Reservation getReservation(Long reservationId){
 
-        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
 
         if(optionalReservation.isPresent()){
             return optionalReservation.get();
@@ -64,31 +64,30 @@ public class ReservationService {
         for(Attendance att: attendances){
             reservations.add(att.getReservation());
         }
-        return  reservations;
+        return reservations;
     }
 
-    public void removeReservation(Long id){
-        reservationRepository.deleteById(id);
+    public void removeReservation(Long reservationId){
+        reservationRepository.deleteById(reservationId);
     }
 
-    public List<User> getAllUsersForEvent(Long eventId){
-        List<User> users = new ArrayList<>();
-        Optional<Event> eventopt = eventRepository.findById(eventId);
-        if(eventopt.isPresent()){
-            Event event = eventopt.get();
-
-            List<Attendance> attendances = event.getAttendances();
-            for(Attendance att : attendances){
-                Long usrId = att.getUserId();
-                Optional<User> user = userRepository.findById(usrId);
-                if(user.isPresent())
-                    users.add(user.get());
-                else
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found!");
-            }
-        }else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!");
-        }
-        return users;
-    }
+//    public List<User> getAllUsersForEvent(Long eventId){
+//        List<User> users = new ArrayList<>();
+//        Optional<Event> eventopt = eventRepository.findById(eventId);
+//        if(eventopt.isPresent()){
+//            Event event = eventopt.get();
+//            List<Attendance> attendances = event.getAttendances();
+//            for(Attendance att : attendances){
+//                Long usrId = att.getUserId();
+//                Optional<User> user = userRepository.findById(usrId);
+//                if(user.isPresent())
+//                    users.add(user.get());
+//                else
+//                    throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found!");
+//            }
+//        }else{
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!");
+//        }
+//        return users;
+//    }
 }

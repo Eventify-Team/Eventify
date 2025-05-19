@@ -79,16 +79,16 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void addAttendance(Long userId, Attendance a) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        if (!optionalUser.isPresent())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
-        User user = optionalUser.get();
-        List<Attendance> attendances = user.getAttendances();
-        attendances.add(a);
-
-        userRepository.save(user);
-    }
+//    public void addAttendance(Long userId, Attendance a) {
+//        Optional<User> optionalUser = userRepository.findById(userId);
+//        if (!optionalUser.isPresent())
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+//        User user = optionalUser.get();
+//        List<Attendance> attendances = user.getAttendances();
+//        attendances.add(a);
+//
+//        userRepository.save(user);
+//    }
 
     public void addRatingForEvent(Long userId, Long eventId, Integer score) {
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
@@ -109,24 +109,24 @@ public class UserService {
         eventRepository.save(event);
     }
 
-    public void cancelReservation(Long userId, Long eventId) {
-        Optional<Event> optionalEvent = eventRepository.findById(eventId);
-        boolean flag = false;
-        if (!optionalEvent.isPresent())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
-        Event event = optionalEvent.get();
-        List<Attendance> attendances = event.getAttendances();
-        for (Attendance att : attendances) {
-            if (att.getUserId().equals(userId)) {
-                flag = true;
-                if (att.getEventId().equals(eventId)) {
-                    att.getReservation().setValid(false);
-                    attendances.remove(att);
-                }
-            }
-        }
-        if(!flag)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
-        eventRepository.save(event);
-    }
+//    public void cancelReservation(Long userId, Long eventId) {
+//        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+//        boolean flag = false;
+//        if (!optionalEvent.isPresent())
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+//        Event event = optionalEvent.get();
+//        List<Attendance> attendances = event.getAttendances();
+//        for (Attendance att : attendances) {
+//            if (att.getUserId().equals(userId)) {
+//                flag = true;
+//                if (att.getEventId().equals(eventId)) {
+//                    att.getReservation().setValid(false);
+//                    attendances.remove(att);
+//                }
+//            }
+//        }
+//        if(!flag)
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+//        eventRepository.save(event);
+//    }
 }

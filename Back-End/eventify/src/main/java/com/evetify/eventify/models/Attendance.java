@@ -56,11 +56,16 @@ public class Attendance {
         return reservation;
     }
 
+    public Rating getRat(){
+        return rating;
+    }
+
+
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
     }
 
-    public Integer getRating(){return rating.getRating();}
+    public Integer getRating(){return rating.getRatingScore();}
     public void setRating(Integer score){rating.setRating(score);}
 
 

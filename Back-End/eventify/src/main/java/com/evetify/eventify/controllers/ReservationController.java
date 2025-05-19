@@ -8,9 +8,7 @@ import com.evetify.eventify.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reservation")
@@ -42,14 +40,14 @@ public class ReservationController {
         return reservations;
     }
 
-    @PostMapping
+    @PostMapping("/addReservation")
     public Reservation addReservation(@RequestBody Reservation reservation){
         Reservation res = reservationService.addReservation(reservation);
         return res;
     }
 
-    @DeleteMapping
-    public void removeResevation(@RequestParam Long id){
+    @DeleteMapping("/removeReservation")
+    public void removeReservation(@RequestParam Long id){
         reservationService.removeReservation(id);
     }
 
