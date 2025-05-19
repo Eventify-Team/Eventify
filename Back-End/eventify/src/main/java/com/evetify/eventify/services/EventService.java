@@ -2,8 +2,10 @@ package com.evetify.eventify.services;
 
 import com.evetify.eventify.models.Attendance;
 import com.evetify.eventify.models.Event;
+import com.evetify.eventify.models.User;
 import com.evetify.eventify.repositories.AttendanceRepository;
 import com.evetify.eventify.repositories.EventRepository;
+import com.evetify.eventify.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.*;
 public class EventService {
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    UserRepository userRepository;
 
 
     public List<Event> getAllEvents(){
@@ -67,8 +71,8 @@ public class EventService {
         return event;
     }
 
-    public List<Event> getEventWithName(String name) {
-        return eventRepository.findByName(name);
+    public List<Event> getEventWithName(String eventName) {
+        return eventRepository.findByName(eventName);
     }
 
     public int getNumberReservationsForEvent(Long eventId){
@@ -108,6 +112,26 @@ public class EventService {
         attendances.add(a);
         event.setAttendances(attendances);
         eventRepository.save(event);
+    }
+
+    public List<User> getAllUsersForEvent(Long eventId){
+        List<User> users = new ArrayList<>();
+        Optional<Event> eventopt = eventRepository.findById(eventId);
+        if(eventopt.isPresent()){
+            Event event = eventopt.get();
+            List<Attendance> attendances = event.getAttendances();
+            for(Attendance att : attendances){
+                Long usrId = att.getUserId();
+                Optional<User> user = userRepository.findById(usrId);
+                if(user.isPresent())
+                    users.add(user.get());
+                else
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found!");
+            }
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found!");
+        }
+        return users;
     }
 
 }

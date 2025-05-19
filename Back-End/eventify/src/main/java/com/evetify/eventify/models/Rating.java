@@ -15,13 +15,12 @@ public class Rating {
     }
 
     public Rating() {
-
     }
     public Long getId(){
         return id;
     }
 
-    public Integer getRating(){
+    public Integer getRatingScore(){
         return score;
     }
 

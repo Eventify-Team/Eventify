@@ -31,13 +31,13 @@ public class RatingController {
         return eventService.getAllRatingsForEvent(eventId);
     }
 
-    @PostMapping
+    @PostMapping("/addRating")
     public Rating addRating(@RequestBody Rating rating){
         Rating rat = ratingService.addRating(rating);
         return rat;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/deleteRating")
     public void deleteRating(@RequestParam Long id){
         ratingService.removeRating(id);
     }

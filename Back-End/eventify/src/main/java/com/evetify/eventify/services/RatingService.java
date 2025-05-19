@@ -18,8 +18,8 @@ public class RatingService {
     RatingRepository ratingRepository;
 
 
-    public Rating getRating(Long id) {
-        Optional<Rating> optionalRating = ratingRepository.findById(id);
+    public Rating getRating(Long ratingId) {
+        Optional<Rating> optionalRating = ratingRepository.findById(ratingId);
 
         if(optionalRating.isPresent()){
             return optionalRating.get();
@@ -35,8 +35,8 @@ public class RatingService {
         return rating;
     }
 
-    public void removeRating(Long id){
-       ratingRepository.deleteById(id);
+    public void removeRating(Long ratingId){
+       ratingRepository.deleteById(ratingId);
     }
 
 

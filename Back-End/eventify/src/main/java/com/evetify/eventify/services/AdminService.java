@@ -24,10 +24,10 @@ public class AdminService {
         return admin;
     }
 
-    public List<Admin> RemoveAdmin(Long id){
-        Optional<Admin> admin = adminRepository.findById(id);
+    public List<Admin> RemoveAdmin(Long adminId){
+        Optional<Admin> admin = adminRepository.findById(adminId);
         if(admin.isPresent()){
-            adminRepository.deleteById(id);
+            adminRepository.deleteById(adminId);
         }else{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin not found!");
         }
@@ -36,8 +36,8 @@ public class AdminService {
 
     }
 
-    public Admin updateAdmin(Long id, String name, String password, String email){
-        Optional<Admin> admin = adminRepository.findById(id);
+    public Admin updateAdmin(Long adminId, String name, String password, String email){
+        Optional<Admin> admin = adminRepository.findById(adminId);
         if(!admin.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin Not Found!");
         Admin adm = admin.get();
