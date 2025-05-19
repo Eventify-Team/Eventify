@@ -51,4 +51,9 @@ public class EventController {
     public void AddAttendance(@RequestParam Long eventid, @RequestBody Attendance attendance) {
         eventService.addAttendance(eventid, attendance);
     }
+
+    @PostMapping("/addEvent")
+    public void addEvent(@RequestBody Event event){
+        eventService.addEvent(event);
+    }
 }

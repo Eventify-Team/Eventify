@@ -106,6 +106,7 @@ public class EventService {
         Event event = optionalEvent.get();
         List<Attendance> attendances = event.getAttendances();
         attendances.add(a);
+        event.setAttendances(attendances);
         eventRepository.save(event);
     }
 
