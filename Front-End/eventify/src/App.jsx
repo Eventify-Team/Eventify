@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import EventDetails from "./components/EventDetails";
 import EventCard from "./components/EventCard";
 import events from "./dataTest/events";
+import LogIn from "./pages/LogIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           }
         />
         <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="/LogIn" element={<LogIn/>}/>
+        <Route path="/SignUp" element={<SignUp/>}/>
       </Routes>
     </Router>
   );
