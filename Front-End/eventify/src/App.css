@@ -40,3 +40,14 @@
 .read-the-docs {
   color: #888;
 }
+
+.centered-container {
+  display: flex;
+  flex-direction: column;   /*Στοίχιση το ένα κάτω από το άλλο*/
+  justify-content: center;     /* οριζόντια στο κέντρο */
+  align-items: center;      /* κάθετα στο κέντρο */
+}
+
+.blueBtn{
+  background-color: #34a3da;
+}
