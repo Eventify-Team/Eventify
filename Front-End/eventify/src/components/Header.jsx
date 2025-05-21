@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <header className="bg-light border-bottom">
-      <div className="container-fluid py-2 px-4 d-flex align-items-center justify-content-between">
+    <header className="bg-white border-bottom sticky-top shadow-sm z-3">
+      <div className="container-fluid py-2 px-3 d-flex align-items-center justify-content-between">
+        
         {/* Logo */}
         <Link to="/" className="d-flex align-items-center text-decoration-none">
           <img src="/Logo.png" alt="Logo" style={{ height: "40px" }} className="me-2" />
@@ -17,7 +17,7 @@ function Header() {
         {/* Search bar */}
         <form className="d-none d-md-flex flex-grow-1 mx-4" role="search">
           <input
-            className="form-control me-2"
+            className="form-control me-2 rounded-pill px-3"
             type="search"
             placeholder="Search events..."
             aria-label="Search"
@@ -26,28 +26,30 @@ function Header() {
 
         {/* Navigation & User */}
         <div className="d-flex align-items-center gap-3">
+          
           {/* Menu */}
           <nav className="d-none d-lg-flex gap-3">
-            <Link to="/" className="text-dark text-decoration-none">Home</Link>
-            <Link to="/AboutUs" className="text-dark text-decoration-none">About Us</Link>
-            <Link to="/events" className="text-dark text-decoration-none">Events</Link>
-            <Link to="/contact" className="text-dark text-decoration-none">Contact Us</Link>
+            <Link to="/Home" className="text-dark text-decoration-none nav-link">Home</Link>
+            <Link to="/AboutUs" className="text-dark text-decoration-none nav-link">About Us</Link>
+            <Link to="/events" className="text-dark text-decoration-none nav-link">Events</Link>
+            <Link to="/contact" className="text-dark text-decoration-none nav-link">Contact Us</Link>
           </nav>
-
+            
           {/* User dropdown OR Auth buttons */}
           {isLoggedIn ? (
             <div className="dropdown">
               <button
-                className="btn btn-light border rounded-circle"
+                className="btn btn-light border rounded-circle p-0"
                 type="button"
                 id="dropdownUser"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 <img
-                  src="https://via.placeholder.com/30"
+                  src="https://via.placeholder.com/36"
                   alt="avatar"
                   className="rounded-circle"
+                  style={{ width: "36px", height: "36px" }}
                 />
               </button>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
@@ -59,8 +61,8 @@ function Header() {
             </div>
           ) : (
             <div className="d-flex gap-2">
-              <Link to="/login" className="btn btn-outline-primary">Login</Link>
-              <Link to="/signup" className="btn btn-primary">Sign Up</Link>
+              <Link to="/login" className="btn btn-outline-primary rounded-pill px-3">Login</Link>
+              <Link to="/signup" className="btn btn-primary rounded-pill px-3">Sign Up</Link>
             </div>
           )}
         </div>
@@ -70,4 +72,3 @@ function Header() {
 }
 
 export default Header;
-
