@@ -17,16 +17,13 @@ public class RatingService {
     @Autowired
     RatingRepository ratingRepository;
 
-
     public Rating getRating(Long ratingId) {
         Optional<Rating> optionalRating = ratingRepository.findById(ratingId);
-
         if(optionalRating.isPresent()){
             return optionalRating.get();
         }
         else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
         }
     }
 
@@ -38,6 +35,4 @@ public class RatingService {
     public void removeRating(Long ratingId){
        ratingRepository.deleteById(ratingId);
     }
-
-
 }

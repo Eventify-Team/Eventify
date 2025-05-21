@@ -30,17 +30,16 @@ public class UserController {
     }
 
     @DeleteMapping("/removeUser")
-    public void removeUser(@RequestParam Long id){
-        userService.RemoveUser(id);
+    public void removeUser(@RequestParam Long userId){
+        userService.RemoveUser(userId);
     }
 
     @PutMapping("/updateUser")
-    public User updateUser(@RequestParam Long id, @RequestParam (required = false) String name,
+    public User updateUser(@RequestParam Long userId, @RequestParam (required = false) String name,
                            @RequestParam (required = false) String surname,
-                           @RequestParam (required = false) String username,
                            @RequestParam (required = false) String email,
                            @RequestParam (required = false) String password){
-        User user = userService.updateUser(id, name, surname, username, email, password);
+        User user = userService.updateUser(userId, name, surname, email, password);
         return user;
 
     }
@@ -52,8 +51,8 @@ public class UserController {
     }
 
     @GetMapping("/getEvent")
-    public Event getEvent(@RequestParam Long id){
-        Event event = eventService.getEvent(id);
+    public Event getEvent(@RequestParam Long eventId){
+        Event event = eventService.getEvent(eventId);
         return event;
     }
 

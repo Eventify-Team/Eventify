@@ -23,32 +23,25 @@ public class ReservationController {
     EventService eventService;
 
     @GetMapping("/getReservation")
-    public Reservation getReservation(@RequestParam Long id){
-        return reservationService.getReservation(id);
+    public Reservation getReservation(@RequestParam Long reservationId){
+        return reservationService.getReservation(reservationId);
     }
 
     @GetMapping("/getAllReservations")
     public List<Reservation> getAllReservations(){
-        List<Reservation> list = reservationService.getAllReservations();
-        return list;
-    }
-
-    @GetMapping("/getAllReservationsForEvent")
-    public List<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
-        Event event = eventService.getEvent(eventId);
-        List<Reservation> reservations = reservationService.getAllReservationsForEvent(eventId);
-        return reservations;
+        List<Reservation> reservationList = reservationService.getAllReservations();
+        return reservationList;
     }
 
     @PostMapping("/addReservation")
-    public Reservation addReservation(@RequestBody Reservation reservation){
-        Reservation res = reservationService.addReservation(reservation);
-        return res;
+    public Reservation addReservation(@RequestBody Reservation res){
+        Reservation reservation = reservationService.addReservation(res);
+        return reservation;
     }
 
     @DeleteMapping("/removeReservation")
-    public void removeReservation(@RequestParam Long id){
-        reservationService.removeReservation(id);
+    public void removeReservation(@RequestParam Long reservationId){
+        reservationService.removeReservation(reservationId);
     }
 
     @GetMapping("checkReservation")
