@@ -33,22 +33,19 @@ public class ReservationService {
 
 
     public Reservation getReservation(Long reservationId){
-
         Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
-
         if(optionalReservation.isPresent()){
             return optionalReservation.get();
         }
         else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
         }
     }
+
     public List<Reservation> getAllReservations(){
         return (List<Reservation>) reservationRepository.findAll();
     }
-
-
+    
     public Reservation addReservation(Reservation res){
         reservationRepository.save(res);
         return res;

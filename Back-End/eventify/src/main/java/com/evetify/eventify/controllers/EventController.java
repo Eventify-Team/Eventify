@@ -2,7 +2,9 @@ package com.evetify.eventify.controllers;
 
 import com.evetify.eventify.models.Attendance;
 import com.evetify.eventify.models.Event;
+import com.evetify.eventify.models.Reservation;
 import com.evetify.eventify.services.EventService;
+import com.evetify.eventify.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,11 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/event")
 public class EventController {
+
     @Autowired
     EventService eventService;
+    @Autowired
+    ReservationService reservationService;
 
     @GetMapping("/getAllEvents")
     public List<Event> getAllEvents(){
@@ -46,13 +51,21 @@ public class EventController {
         return eventService.getAllRatingsForEvent(eventId);
     }
 
-    @PostMapping("/addAttendance")
-    public void AddAttendance(@RequestParam Long eventid, @RequestBody Attendance attendance) {
-        eventService.addAttendance(eventid, attendance);
+    @GetMapping("/getAllReservationsForEvent")
+    public List<Reservation> getAllReservationsForEvent(@RequestParam Long eventId){
+        Event event = eventService.getEvent(eventId);
+        List<Reservation> reservations = reservationService.getAllReservationsForEvent(eventId);
+        return reservations;
     }
 
-    @PostMapping("/addEvent")
-    public void addEvent(@RequestBody Event event){
-        eventService.addEvent(event);
-    }
+//    @PostMapping("/addEvent")
+//    public void addEvent(@RequestBody Event event){
+//        eventService.addEvent(event);
+//    }
+
+
+    //    @PostMapping("/addAttendance")
+//    public void AddAttendance(@RequestParam Long eventid, @RequestBody Attendance attendance) {
+//        eventService.addAttendance(eventid, attendance);
+//    }
 }

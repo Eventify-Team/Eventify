@@ -51,14 +51,14 @@ public class AdminController {
     }
 
     @PutMapping("/updateAdmin")
-    public Admin updateAdmin(@RequestParam Long adminId, @RequestParam (required = false) String name,
+    public Admin updateAdmin(@RequestParam Long adminId, @RequestParam (required = false) String lastName,
+                             @RequestParam (required = false) String firstName,
                            @RequestParam (required = false) String password,
                            @RequestParam (required = false) String email){
-        Admin admin = adminService.updateAdmin(adminId, name, password,email);
+        Admin admin = adminService.updateAdmin(adminId, lastName, firstName, password,email);
         return admin;
 
     }
-
 
     @PostMapping("/addEvent")
     public void addEvent(@RequestBody Event event){

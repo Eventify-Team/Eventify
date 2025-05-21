@@ -36,19 +36,21 @@ public class AdminService {
 
     }
 
-    public Admin updateAdmin(Long adminId, String name, String password, String email){
-        Optional<Admin> admin = adminRepository.findById(adminId);
-        if(!admin.isPresent())
+    public Admin updateAdmin(Long adminId, String lastName, String firstName, String password, String email){
+        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
+        if(!optionalAdmin.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Admin Not Found!");
-        Admin adm = admin.get();
-        if(name != null)
-            adm.setName(name);
+        Admin admin = optionalAdmin.get();
+        if(lastName != null)
+            admin.setLastName(lastName);
+        if(firstName != null)
+            admin.setFirstName(firstName);
         if(password != null)
-            adm.setPassword(password);
+            admin.setPassword(password);
         if(email != null)
-            adm.setEmail(email);
+            admin.setEmail(email);
 
-        adminRepository.save(adm);
-        return adm;
+        adminRepository.save(admin);
+        return admin;
     }
 }

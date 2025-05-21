@@ -15,17 +15,17 @@ public class AttendanceController {
     @Autowired
     AttendanceService attendanceService;
 
-    @DeleteMapping("/deleteAttendance")
-    public void deleteAttendance(@RequestParam Long attendanceId){
-        attendanceService.removeAttendance(attendanceId);
-    }
-
-    @PostMapping("/addAttendance")
-    public void addAttendance(@RequestParam Long userId, @RequestParam Long eventId){
-        attendanceService.addAttendance(userId,eventId);
-    }
-    @GetMapping("getAttendancesForUser")
-    public List<Attendance> getAttendancesForUser(@RequestParam Long userId){
-        return attendanceService.getAttendancesForUser(userId);
-    }
+//    @DeleteMapping("/deleteAttendance")
+//    public void deleteAttendance(@RequestParam Long attendanceId){
+//        attendanceService.removeAttendance(attendanceId);
+//    }
+//
+//    @PostMapping("/addAttendance")
+//    public void addAttendance(@RequestParam Long userId, @RequestParam Long eventId){
+//        attendanceService.addAttendance(userId,eventId);
+//    }
+//    @GetMapping("getAttendancesForUser")
+//    public List<Attendance> getAttendancesForUser(@RequestParam Long userId){
+//        return attendanceService.getAttendancesForUser(userId);
+//    }
 }

@@ -103,17 +103,6 @@ public class EventService {
         return ratings;
     }
 
-    public void addAttendance(Long eventId, Attendance a){
-        Optional<Event> optionalEvent = eventRepository.findById(eventId);
-        if(!optionalEvent.isPresent())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
-        Event event = optionalEvent.get();
-        List<Attendance> attendances = event.getAttendances();
-        attendances.add(a);
-        event.setAttendances(attendances);
-        eventRepository.save(event);
-    }
-
     public List<User> getAllUsersForEvent(Long eventId){
         List<User> users = new ArrayList<>();
         Optional<Event> eventopt = eventRepository.findById(eventId);
@@ -134,4 +123,14 @@ public class EventService {
         return users;
     }
 
+//    public void addAttendance(Long eventId, Attendance a){
+//        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+//        if(!optionalEvent.isPresent())
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+//        Event event = optionalEvent.get();
+//        List<Attendance> attendances = event.getAttendances();
+//        attendances.add(a);
+//        event.setAttendances(attendances);
+//        eventRepository.save(event);
+//    }
 }

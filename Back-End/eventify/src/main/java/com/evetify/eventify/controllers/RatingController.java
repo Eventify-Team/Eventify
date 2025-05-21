@@ -22,26 +22,18 @@ public class RatingController {
     EventService eventService;
 
     @GetMapping("/getRating")
-    public Rating getRating(@RequestParam Long id ){
-        return ratingService.getRating(id);
-    }
-
-    @GetMapping("/getAllRatingsForEvent")
-    public HashMap<String, Integer> getRatingsForEvent(@RequestParam Long eventId){
-        return eventService.getAllRatingsForEvent(eventId);
+    public Rating getRating(@RequestParam Long ratingId){
+        return ratingService.getRating(ratingId);
     }
 
     @PostMapping("/addRating")
-    public Rating addRating(@RequestBody Rating rating){
-        Rating rat = ratingService.addRating(rating);
-        return rat;
+    public Rating addRating(@RequestBody Rating rat){
+        Rating rating = ratingService.addRating(rat);
+        return rating;
     }
 
     @DeleteMapping("/deleteRating")
-    public void deleteRating(@RequestParam Long id){
-        ratingService.removeRating(id);
+    public void deleteRating(@RequestParam Long ratingid){
+        ratingService.removeRating(ratingid);
     }
-
-
-
 }

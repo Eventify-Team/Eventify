@@ -23,8 +23,6 @@ public class UserService {
     @Autowired
     EventRepository eventRepository;
 
-
-
     public User addUser(User user) {
         userRepository.save(user);
         return user;
@@ -37,12 +35,10 @@ public class UserService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!");
         }
-
         return userRepository.findAll();
-
     }
 
-    public User updateUser(Long userId, String name, String surname, String username, String email, String password) {
+    public User updateUser(Long userId, String name, String surname, String email, String password) {
         Optional<User> user = userRepository.findById(userId);
         if (!user.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found!");
@@ -51,8 +47,6 @@ public class UserService {
             usr.setName(name);
         if (surname != null)
             usr.setSurname(surname);
-        if (username != null)
-            usr.setUsername(username);
         if (email != null)
             usr.setEmail(email);
         if (password != null)
@@ -79,17 +73,6 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-//    public void addAttendance(Long userId, Attendance a) {
-//        Optional<User> optionalUser = userRepository.findById(userId);
-//        if (!optionalUser.isPresent())
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
-//        User user = optionalUser.get();
-//        List<Attendance> attendances = user.getAttendances();
-//        attendances.add(a);
-//
-//        userRepository.save(user);
-//    }
-
     public void addRatingForEvent(Long userId, Long eventId, Integer score) {
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
         boolean flag = false;
@@ -105,9 +88,20 @@ public class UserService {
             }
         }
         if(!flag)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reservation Not Found. You must book your ticket first, before add a rating.");
         eventRepository.save(event);
     }
+//    public void addAttendance(Long userId, Attendance a) {
+//        Optional<User> optionalUser = userRepository.findById(userId);
+//        if (!optionalUser.isPresent())
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+//        User user = optionalUser.get();
+//        List<Attendance> attendances = user.getAttendances();
+//        attendances.add(a);
+//
+//        userRepository.save(user);
+
+//    }
 
 //    public void cancelReservation(Long userId, Long eventId) {
 //        Optional<Event> optionalEvent = eventRepository.findById(eventId);

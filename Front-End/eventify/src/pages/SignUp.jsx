@@ -18,7 +18,7 @@ const SignUp = () => (
                         <input type="text" id="usernameInput" className="form-control" placeholder="Username" />
                 </div>
                 <div className="row mb-3">
-                        <input type="text" id="passwordInput" className="form-control" placeholder="Password" />
+                        <input type="password" id="passwordInput" className="form-control" placeholder="Password" />
                 </div>
                 <div className="row mb-3">
                         <input type="text" id="emailInput"className="form-control" placeholder="Email" />

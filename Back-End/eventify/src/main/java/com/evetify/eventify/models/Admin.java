@@ -9,15 +9,19 @@ public class Admin {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String lastName;
+    private String firstName;
+    private String username;
     private String password;
     private String email;
     @OneToMany
     @JoinColumn(name = "admin_id")
     private List<Event> events = new ArrayList<>();
 
-    public Admin(String name, String password, String email, List<Event> events) {
-        this.name = name;
+    public Admin(String lastName, String firstName, String username, String password, String email, List<Event> events) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.username = username;
         this.password = password;
         this.email = email;
         this.events = events;
@@ -35,12 +39,28 @@ public class Admin {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
