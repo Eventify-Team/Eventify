@@ -4,8 +4,8 @@ import event3 from '../Images/event3.jpg';
 import event1 from '../Images/event1.jpg'
 import event2 from '../Images/event2.jpg'
 import 'bootstrap/dist/js/bootstrap.min.js';
-import EventCard from '../components/EventCard';
-import events from '../dataTest/events';
+import { EventCard } from '../pages/EventsPage';
+import events from '../dataTest/events.js';
 import Calendar from '../components/Calendar';
 
 

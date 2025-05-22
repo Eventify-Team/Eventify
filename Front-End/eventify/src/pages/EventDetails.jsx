@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
-import events from "../dataTest/events";
+import events from "../dataTest/events.js";
 import React from 'react';
-
 
 function EventDetails() {
   const { id } = useParams();
@@ -15,7 +14,7 @@ function EventDetails() {
       <img src={event.image} alt={event.title} className="w-full h-64 object-cover my-4" />
       <p><strong>Date:</strong> {event.date}</p>
       <p><strong>Location:</strong> {event.location}</p>
-      <p className="my-4"><strong>Περιγραφή:</strong> {event.description}</p>
+      <p className="my-4"><strong>Description:</strong> {event.description}</p>
       <p><strong>Capacity:</strong> {event.capacity}</p>
       <p><strong>Fee:</strong> {event.cost}</p>
       {event.soldOut ? (
