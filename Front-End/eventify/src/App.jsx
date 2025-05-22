@@ -1,27 +1,37 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Header from "./components/Header";
-import EventDetails from "./components/EventDetails";
+import Home from "./pages/Home";
+import AboutUs from "./pages/AboutUs";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
-import AboutUs from "./pages/AboutUs";
+import EventDetails from "./components/EventDetails";
 import NotFound404 from "./pages/NotFound404";
-import Home from "./pages/Home";
+
+function AppContent() {
+  const location = useLocation();
+  const hideHeaderPaths = ["/login", "/signup"];
+  const shouldHideHeader = hideHeaderPaths.includes(location.pathname.toLowerCase());
+
+  return (
+    <div className="page-wrapper d-flex flex-column min-vh-100"> {/* fit to screen!!!!! */}
+      {!shouldHideHeader && <Header />}
+      <Routes>
+        <Route path="/" element={<Navigate to="/Home" />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/LogIn" element={<LogIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="*" element={<NotFound404 />} />
+      </Routes>
+    </div>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Navigate to="/Home" />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/event/:id" element={<EventDetails />} />
-          <Route path="/LogIn" element={<LogIn />} />
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
-          <Route path="*" element={<NotFound404 />} />
-        </Routes>
-      </>
+      <AppContent />
     </Router>
   );
 }

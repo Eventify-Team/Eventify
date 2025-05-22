@@ -1,5 +1,12 @@
-body {
+
+
+
+html,body, #root {
   font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 :root {
@@ -7,10 +14,17 @@ body {
   --bs-primary-rgb: 52, 163, 218;
 }
 
-
-#root{
-  width: 100%;
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
+
+main {
+  flex-grow: 1;
+}
+
+
 
 
 .logo {
@@ -58,4 +72,8 @@ body {
 
 .blueBtn{
   background-color: #34a3da;
+}
+.login-page {
+  background: linear-gradient(135deg, #e0f7fa, #ffffff);
+  min-height: 100vh;
 }
