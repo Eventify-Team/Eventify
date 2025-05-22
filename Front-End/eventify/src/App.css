@@ -77,3 +77,88 @@ main {
   background: linear-gradient(135deg, #e0f7fa, #ffffff);
   min-height: 100vh;
 }
+
+.animate span {
+  opacity: 0;
+  display: inline-block;
+  animation: fadeIn 0.5s forwards;
+  color: #38A0CE;
+  font-family: "Playwrite DK Loopet", cursive;
+  letter-spacing: 5px;
+}
+
+.animate span:nth-child(1) { animation-delay: 0s; }
+.animate span:nth-child(2) { animation-delay: 0.1s; }
+.animate span:nth-child(3) { animation-delay: 0.2s; }
+.animate span:nth-child(4) { animation-delay: 0.3s; }
+.animate span:nth-child(5) { animation-delay: 0.4s; }
+.animate span:nth-child(6) { animation-delay: 0.5s; }
+.animate span:nth-child(7) { animation-delay: 0.6s; }
+.animate span:nth-child(8) { animation-delay: 0.6s; }
+
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.calendar-container {
+  width: 600px;
+  margin-top: 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #34a3da;
+}
+
+.days {
+  padding: 10px 0;
+  background: #eee;
+  margin: 0;
+}
+
+.daysList li{
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.days li {
+  list-style-type: none;
+  display: inline-block;
+  width: 13.6%;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size:12px;
+  color: #777;
+}
+
+p{
+  letter-spacing: 1px;
+}
+
+h2{
+  letter-spacing: 1px;
+}
+
+h1{
+  letter-spacing: 1px;
+}
+
+#prev, #next{
+  cursor:pointer;
+}
+
+
