@@ -4,8 +4,10 @@ import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
-import EventDetails from "./components/EventDetails";
 import NotFound404 from "./pages/NotFound404";
+import EventsPage from "./pages/EventsPage";
+import EventDetails from "./pages/EventDetails";
+
 
 function AppContent() {
   const location = useLocation();
@@ -21,7 +23,8 @@ function AppContent() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/LogIn" element={<LogIn />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/event/:id" element={<EventDetails />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/event/:id" element={<EventDetails />} />  {/* Λεπτομέρειες event */}
         <Route path="*" element={<NotFound404 />} />
       </Routes>
     </div>
