@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="el">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            border: 2px solid #333;
+            max-width: 1000px;
+            max-height:fit-content;
+        }
+        .logo {
+            width: 150px;
+        }
+        .header {
+            text-align: center;
+        }
+        .info {
+            margin-top: 30px;
+            font-size: 16px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 12px;
+            text-align: center;
+            color: #999;
+        }
+        .qr_code{
+            justify-content: center;
+            display: flex;
+
+        }
+    </style>
+    <title>Ticket</title>
+</head>
+<body>
+<div class="header">
+    <img src="data:image/png;base64,[[${logoBase64}]]" alt="logo" />
+    <h1>Εισιτήριο Εκδήλωσης</h1>
+</div>
+
+<div class="info">
+    <p><strong>First Name:</strong> <span th:text="${name}"></span></p>
+    <p><strong>Last Name:</strong> <span th:text="${surname}"></span></p>
+    <p><strong>Event:</strong> <span th:text="${event}"></span></p>
+    <p><strong>Location:</strong> <span th:text="${location}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${description}"></span></p>
+    <p><strong>Date &amp; Time:</strong> <span th:text="${date}"></span></p>
+    <p><strong>Ticket Price:</strong> <span th:text="${fee}"></span></p>
+
+</div>
+
+<div class = "qr_code">
+    <img src="data:image/png;base64,[[${qrBase64}]]" alt="qr"/>
+</div>
+
+<div class="footer">
+    Σας ευχαριστούμε για την κράτησή σας.
+    <br/><br/>Eventify
+</div>
+</body>
+</html>
