@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +26,8 @@ public class AttendanceService {
     ReservationRepository reservationRepository;
     @Autowired
     RatingRepository ratingRepository;
+    @Autowired
+    TicketPdfService ticketPdfService;
 
 
     public void removeAttendance(Long attendanceId) {
@@ -44,7 +48,7 @@ public class AttendanceService {
 
     }
 
-    public void addAttendance(Long userId, Long eventId) {
+    public void addAttendance(Long userId, Long eventId) throws IOException {
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
@@ -58,6 +62,8 @@ public class AttendanceService {
         reservationRepository.save(reservation);
         attendance.setReservation(reservation);
         attendanceRepository.save(attendance);
+        File file = ticketPdfService.generateTicket(user.getName(), user.getSurname(), event.getName(), event.getLocation(), event.getDescription(), event.getDate(), event.getFee(), attendance.getId());
+
     }
 
     public List<Attendance> getAttendancesForUser(Long userId) {
