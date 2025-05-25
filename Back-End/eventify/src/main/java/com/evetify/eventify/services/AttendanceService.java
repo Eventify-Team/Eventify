@@ -62,7 +62,7 @@ public class AttendanceService {
         reservationRepository.save(reservation);
         attendance.setReservation(reservation);
         attendanceRepository.save(attendance);
-        File file = ticketPdfService.generateTicket(user.getName(), user.getSurname(), event.getName(), event.getLocation(), event.getDescription(), event.getDate(), event.getFee(), attendance.getId());
+        File file = ticketPdfService.generateTicket(user.getName(), user.getSurname(), event.getName(), event.getLocation(), event.getDescription(), event.getDate(), event.getTime() ,event.getFee(), attendance.getId());
 
     }
 

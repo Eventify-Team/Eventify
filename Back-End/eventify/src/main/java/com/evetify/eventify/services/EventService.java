@@ -47,7 +47,7 @@ public class EventService {
         return event;
     }
 
-    public Event updateEvent(Long eventId, String name, String description, Integer duration, String location, Integer capacity, Date aDate, Double fee){
+    public Event updateEvent(Long eventId, String name, String description, Integer duration, String location, Integer capacity, String date, String time, Double fee){
         Optional<Event> optionalEvent = eventRepository.findById(eventId);
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
@@ -62,8 +62,10 @@ public class EventService {
             event.setLocation(location);
         if(capacity != null)
             event.setCapacity(capacity);
-        if(aDate != null)
-            event.setDate(aDate);
+        if(date != null)
+            event.setDate(date);
+        if(time != null)
+            event.setTime(time);
         if(fee != null)
             event.setFee(fee);
 

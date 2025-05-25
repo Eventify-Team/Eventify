@@ -27,7 +27,7 @@ public class TicketPdfService {
         this.templateEngine = templateEngine;
     }
 
-    public File generateTicket(String name, String surname, String nameEvent, String location, String description, Date date, double fee, Long attendanceId) {
+    public File generateTicket(String name, String surname, String nameEvent, String location, String description, String date, String time, double fee, Long attendanceId) {
         // Προετοιμασία HTML περιεχομένου μέσω Thymeleaf
         Context context = new Context();
         context.setVariable("name", name);
@@ -36,8 +36,8 @@ public class TicketPdfService {
         context.setVariable("location", location);
         context.setVariable("description", description);
         context.setVariable("date", date);
+        context.setVariable("time", time);
         context.setVariable("fee", fee);
-
 
         String htmlContent = templateEngine.process("ticket", context);
 
