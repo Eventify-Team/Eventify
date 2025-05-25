@@ -1,11 +1,7 @@
 package com.evetify.eventify.models;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -18,20 +14,22 @@ public class Event {
     private int duration;
     private String location;
     private int capacity;
-    private Date date;
+    private String date;
+    private String time;
     private double fee;
     @OneToMany(mappedBy = "event")
     private List<Attendance> attendances;
 
 
 
-    public Event(String name, String description, int duration, String location, int capacity, Date aDate, double fee) {
+    public Event(String name, String description, int duration, String location, int capacity, String date, String time, double fee) {
         this.name = name;
         this.description = description;
         this.duration = duration;
         this.location = location;
         this.capacity = capacity;
-        this.date = aDate;
+        this.date = date;
+        this.time = time;
         this.fee = fee;
         this.attendances = new ArrayList<>();
     }
@@ -107,13 +105,20 @@ public class Event {
     public void addAttendance(Attendance a){
         attendances.add(a);
     }
-    public Date getDate() {
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
-
-
 }

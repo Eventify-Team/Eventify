@@ -71,9 +71,10 @@ public class AdminController {
                               @RequestParam (required = false) Integer duration,
                               @RequestParam (required = false) String location,
                               @RequestParam (required = false) Integer capacity,
-                              @RequestParam (required = false) Date date,
+                              @RequestParam (required = false) String date,
+                              @RequestParam (required = false) String time,
                               @RequestParam (required = false) Double fee){
-        Event event = eventService.updateEvent(eventId, name, description, duration, location, capacity, date, fee);
+        Event event = eventService.updateEvent(eventId, name, description, duration, location, capacity, date, time, fee);
         return event;
     }
 

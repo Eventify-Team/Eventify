@@ -17,9 +17,9 @@ public class PdfController {
     @Autowired
     TicketPdfService ticketPdfService;
     @GetMapping("/generate")
-    public ResponseEntity<String> pdf(String name, String surname, String nameEvent, String location, String description, Date date, double fee, Long attendanceId) {
+    public ResponseEntity<String> pdf(String name, String surname, String nameEvent, String location, String description, String date, String hour, double fee, Long attendanceId) {
         try {
-            ticketPdfService.generateTicket(name, surname, nameEvent, location, description, date, fee, attendanceId    );
+            ticketPdfService.generateTicket(name, surname, nameEvent, location, description, date, hour, fee, attendanceId);
             return ResponseEntity.ok("Το εισιτήριο δημιουργήθηκε στην επιφάνεια εργασίας!");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Σφάλμα: " + e.getMessage());
