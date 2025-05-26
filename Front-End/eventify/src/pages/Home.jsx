@@ -5,11 +5,27 @@ import event1 from '../Images/event1.jpg';
 import event2 from '../Images/event2.jpg';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import { EventCard } from '../pages/EventsPage';
-import events from '../dataTest/events.js';
+//import events from '../dataTest/events.js';
 import Calendar from '../components/Calendar';
+import { useState, useEffect } from "react";
+
 
 
 const Home = () => {
+    //Connection with DB, in order to take the Events
+    const [items, setItems] = useState([]);
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch("http://localhost:8080/event/getAllEvents");
+                    const result = await response.json();
+                    setItems(result);
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                }
+            };
+            fetchData();
+        }, []);  
   return (
     <>
                 <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
@@ -45,7 +61,7 @@ const Home = () => {
                   </h2>
                   <div className="container py-4">
                       <div className="row g-2">
-                          {events.map((event) => (
+                          {items.map((event) => (
                               <div key={event.id} className="col-12 col-md-6 col-lg-4">
                                   <EventCard event={event} />
                               </div>
