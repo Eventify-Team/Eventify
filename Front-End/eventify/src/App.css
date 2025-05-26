@@ -24,6 +24,12 @@ main {
   flex-grow: 1;
 }
 
+.Toastify__progress-bar {
+  background: #34a3da !important;
+  color: #eee;  /* Bootstrap μπλε, μπορείς να βάλεις όποιο hex θες */
+}
+
+
 
 
 

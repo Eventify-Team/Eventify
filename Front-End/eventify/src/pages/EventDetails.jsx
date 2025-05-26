@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 
 
 function EventDetails() {
+  //Connection with DB, in order to take the Events
+  //Connection with DB, in order to take the number of the reservations for an Event
   const [items, setItems] = useState(null);
   const [reservations, setReservations] = useState(null);
   const { id } = useParams();

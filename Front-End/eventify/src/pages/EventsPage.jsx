@@ -5,10 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from "react";
 import EventDetails from './EventDetails';
 
-function EventsPage() { 
+function EventsPage() {
+  //Connection with DB, in order to take the Events 
   const [items, setItems] = useState([]);
-
-   // Fetch data on initial render
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -35,6 +34,7 @@ function EventsPage() {
 }
 
 function EventCard({ event }) {
+  //Connection with DB, in order to take the number of the reservations for an Event
     const [reservations, setReservations] = useState(null);
     useEffect(() => {
           const fetchData = async () => {
