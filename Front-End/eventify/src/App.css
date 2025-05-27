@@ -168,3 +168,7 @@ h1{
 }
 
 
+.main-cont{
+  display: flex;
+  flex-direction: column;
+}
