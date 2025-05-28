@@ -172,3 +172,12 @@ h1{
   display: flex;
   flex-direction: column;
 }
+
+.inactive {
+  color: #ccc !important;
+}
+
+.active{
+  background-color: red !important;
+  border-radius: 50%;
+}
