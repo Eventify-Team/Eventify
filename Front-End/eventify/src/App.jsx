@@ -7,6 +7,8 @@ import SignUp from "./pages/SignUp";
 import NotFound404 from "./pages/NotFound404";
 import EventsPage from "./pages/EventsPage";
 import EventDetails from "./pages/EventDetails";
+import AddEventAdmin from "./pages/AddEventAdmin";
+import EventsPageAdmin from "./pages/EventsPageAdmin";
 
 
 function AppContent() {
@@ -26,6 +28,8 @@ function AppContent() {
         <Route path="/events" element={<EventsPage />} />
         <Route path="/event/:id" element={<EventDetails />} />  {/* Λεπτομέρειες event */}
         <Route path="*" element={<NotFound404 />} />
+        <Route path="/AddEventAdmin" element={<AddEventAdmin/>} />
+        <Route path="/EventsPageAdmin" element = {<EventsPageAdmin/>} />
       </Routes>
     </div>
   );
