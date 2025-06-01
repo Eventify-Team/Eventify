@@ -7,8 +7,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import { EventCard } from '../pages/EventsPage';
 //import events from '../dataTest/events.js';
 import Calendar from '../components/Calendar';
-import { useState, useEffect } from "react";
-
+import { useState, useEffect} from "react";
+import { useLocation } from "react-router-dom";
 
 
 const Home = () => {
@@ -25,7 +25,11 @@ const Home = () => {
                 }
             };
             fetchData();
-        }, []);  
+        }, []); 
+    const location = useLocation();
+    const username = location.state?.username;
+
+ 
   return (
     <>
                 <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
