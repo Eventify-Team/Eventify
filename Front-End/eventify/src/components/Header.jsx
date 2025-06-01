@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import userPic from'../Images/user.png'; 
 
-function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+function Header({ isLoggedIn, setIsLoggedIn }) {
+
+  const navigate = useNavigate();
+  const username = localStorage.getItem("username");
+
 
   return (
     <header className="bg-white border-bottom sticky-top shadow-sm z-3 w-100">
@@ -45,17 +52,18 @@ function Header() {
                     aria-expanded="false"
                   >
                     <img
-                      src="https://via.placeholder.com/36"
+                      src={userPic}
                       alt="avatar"
                       className="rounded-circle"
                       style={{ width: "36px", height: "36px" }}
                     />
                   </button>
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                    <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                    <li><Link className="dropdown-item" to= {`/PersonalProfile/${username}`}>Profile</Link></li>
                     <li><Link className="dropdown-item" to="/reservations">My Reservations</Link></li>
                     <li><hr className="dropdown-divider" /></li>
-                    <li><button className="dropdown-item" onClick={() => setIsLoggedIn(false)}>Logout</button></li>
+                    <li><button className="dropdown-item" onClick={() => {setIsLoggedIn(false); navigate("/LogIn");
+                    }}>Logout</button></li>
                   </ul>
                 </div>
               ) : (
