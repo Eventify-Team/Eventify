@@ -19,7 +19,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
 
              {/* Logo */}
         <Link to="/" className="d-flex align-items-center text-decoration-none">
-          <img src="/transparent_logo.png" alt="Logo" className="me-2" style={{ height: "60px", maxHeight: "10vh" }} />
+          <img src="/logoTransparent.png" alt="Logo" className="me-2" style={{ height: "30px", maxHeight: "10vh" }} />
           
         </Link>
 
