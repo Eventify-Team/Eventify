@@ -4,12 +4,12 @@ import '../App.css';
 
 function Footer() {
     return (
-        <footer className="bg-primary text-white pt-4 pb-2 mt-5">
+        <footer className="text-white pt-4 pb-2 mt-5" style={{ backgroundColor: "#34a3da" }} >
             <div className="container">
                 <div className="row">
                     <div className="col-md-4 mb-3 d-flex flex-column align-items-start justify-content-start">
                         <div className="d-flex align-items-center mb-2">
-                            <img src="logoWhite.png" alt="logo" style={{ height: "150px", marginRight: "10px" }} />
+                            <img src="logoWhite.png" alt="logo" style={{ height: "150px" }} />
                             
                         </div>
                         <p className="mb-0">Turning moments into memories.</p>
