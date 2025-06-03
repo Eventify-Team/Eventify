@@ -4,19 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
-const UpdateUser = () => {
+const UpdateAdmin = () => {
 
     const location = useLocation();
-    const user = location.state?.items; 
-    const username = user.username; 
+    const admin = location.state?.items; 
+    const username = admin.username; 
     const navigate = useNavigate(); // <-- πρέπει να υπάρχει
 
     
     const [formData,setFormData] = useState({
-        name: String(user.name),
-        surname: String(user.surname),
-        email: String(user.email),
-        password: String(user.password)
+        name: String(admin.firstName),
+        surname: String(admin.lastName),
+        email: String(admin.email),
+        password: String(admin.password)
     });
 
 
@@ -31,20 +31,20 @@ const UpdateUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const userId = parseFloat(user.id);
+          const adminId = parseFloat(admin.id);
           //Connection with DB in order to submit new user.
-          await axios.put(`http://localhost:8080/user/updateUser`, null, {
+          await axios.put(`http://localhost:8080/admin/updateAdmin`, null, {
                 params: {
-                  userId: userId,
-                  name: formData.name,
-                  surname: formData.surname,
-                  email: formData.email,
-                  password: formData.password
+                  adminId: adminId,
+                  lastName: formData.surname,
+                  firstName: formData.name,
+                  password: formData.password,
+                  email: formData.email
       }
-    });    toast.success('User updated successfully!');
+    });    toast.success('Admin updated successfully!');
           //2s delay and after apperars login page
           setTimeout(() => {
-          navigate(`/PersonalProfile/${username}`);
+          navigate(`/AdminProfile/${username}`);
           }, 2000);
         } 
           catch (err) {
@@ -56,7 +56,7 @@ const UpdateUser = () => {
 
     return(
         <div className="container mt-4">
-            <h2>Update User</h2>
+            <h2>Update Admin</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                 <label className="form-label">Name</label>
@@ -78,7 +78,7 @@ const UpdateUser = () => {
                 <input type="password" className="form-control" name="password" value={formData.password} onChange={handleChange}  />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Update User</button>
+                <button type="submit" className="btn btn-primary">Update Admin</button>
             </form>
             {/* format for the message succefully creation or not */}
               <ToastContainer
@@ -98,4 +98,4 @@ const UpdateUser = () => {
 
 };
 
-export default UpdateUser;
+export default UpdateAdmin;

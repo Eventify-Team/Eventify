@@ -9,6 +9,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
 
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
+  const adminUsername = localStorage.getItem("adminUsername");
 
 
   return (

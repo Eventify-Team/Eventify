@@ -57,7 +57,11 @@ public class AdminController {
                            @RequestParam (required = false) String email){
         Admin admin = adminService.updateAdmin(adminId, lastName, firstName, password,email);
         return admin;
+    }
 
+    @GetMapping("/getAdminByUsername")
+    public Admin getAdminByUsername(@RequestParam String adminUsername){
+        return adminService.getAdminByUsername(adminUsername);
     }
 
     @PostMapping("/addEvent")
@@ -82,6 +86,12 @@ public class AdminController {
     public List<Event> deleteEvent(@RequestParam Long eventId){
         List<Event> events = eventService.removeEvent(eventId);
         return events;
+    }
+
+    @GetMapping("/getAllAdmins")
+    public List<Admin> getAllAdmins(){
+        List<Admin> admins = adminService.getAllAdmins();
+        return admins;
     }
 
 

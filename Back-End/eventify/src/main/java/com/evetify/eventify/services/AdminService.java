@@ -1,16 +1,13 @@
 package com.evetify.eventify.services;
 
 import com.evetify.eventify.models.Admin;
-import com.evetify.eventify.models.Event;
 import com.evetify.eventify.models.User;
 import com.evetify.eventify.repositories.AdminRepository;
-import com.evetify.eventify.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +32,16 @@ public class AdminService {
         return adminRepository.findAll();
 
     }
+
+    public Admin getAdminByUsername(String adminUsername) {
+        return adminRepository.findByUsername(adminUsername);
+    }
+
+    public List<Admin> getAllAdmins() {
+        return (List<Admin>) adminRepository.findAll();
+    }
+
+
 
     public Admin updateAdmin(Long adminId, String lastName, String firstName, String password, String email){
         Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
