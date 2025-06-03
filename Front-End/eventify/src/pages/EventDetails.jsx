@@ -2,6 +2,13 @@ import { useParams } from "react-router-dom";
 //import events from "../dataTest/events.js";
 import React from 'react';
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import '../App.css';
+
+
+
 
 
 function EventDetails() {
@@ -9,7 +16,9 @@ function EventDetails() {
   //Connection with DB, in order to take the number of the reservations for an Event
   const [items, setItems] = useState(null);
   const [reservations, setReservations] = useState(null);
+  const [user, setUser] = useState(null);
   const { id } = useParams();
+  const username = localStorage.getItem("username");
   useEffect(() => {
           const fetchData = async () => {
               try {
@@ -20,11 +29,15 @@ function EventDetails() {
                   const response1 = await fetch(`http://localhost:8080/event/getNumberReservationsForEvent/?eventId=${eventId}`);
                   const result1 = await response1.json();
                   setReservations(parseInt(result1));
+                  const usernameExists = String(username);
+                  const response2 = await fetch(`http://localhost:8080/admin/getUserByUsername/?username=${usernameExists}`);
+                  const result2 = await response2.json();
+                  setUser(result2);
               } catch (error) {
                   console.error("Error fetching event:", error);
               }
           };
-
+          
           fetchData();
       }, [id]);  
 
@@ -36,6 +49,18 @@ function EventDetails() {
     else
       return false;
   }
+
+  const booking = async () => {
+    try {
+      await axios.post(`http://localhost:8080/user/addAttendance?userId=${user.id}&eventId=${items.id}`);
+      toast.success("Reservation completed!");
+      setTimeout(() => {
+            navigate('/EventsPage'); 
+          }, 2000);
+    } catch (err) {
+      toast.error("Something went wrong during registration. Please try again.");
+    }
+  };
     
 
 
@@ -49,11 +74,24 @@ function EventDetails() {
       <p><strong>Capacity:</strong> {items.capacity}</p>
       <p><strong>Duration:</strong> {items.duration}'</p>
       <p><strong>Fee:</strong> {items.fee}€</p>
+      {/* format for the message succefully creation or not */}
+          <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable={false}
+          pauseOnHover={false}
+          theme="light"
+          />
       
       {isSoldOut(items.capacity, reservations) ? (
         <button className="border border-red-500 text-red-500 px-4 py-2">SOLD OUT</button>
       ) : (
-        <button className="border border-green-500 text-green-500 px-4 py-2">BOOKING</button>
+        <button onClick={booking} className="border border-green-500 text-green-500 px-4 py-2">BOOKING</button>
       )} 
     </div>
   );

@@ -5,6 +5,8 @@ import React from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import transparent_logo from '../images/transparent_logo.png';
+
 
 const SignUp = () => {
   const [formData, setFormData] = useState({ 
@@ -66,7 +68,7 @@ const SignUp = () => {
         <div className="bg-white shadow rounded p-4" style={{ width: '100%', maxWidth: '400px' }}>
           <div className="text-center mb-4">
             <Link to="/Home">
-              <img src="/transparent_logo.png" alt="Logo" style={{ height: "100px" }} className="mb-2" />
+              <img src={transparent_logo} alt="Logo" style={{ height: "100px" }} className="mb-2" />
             </Link>
             <h1 className="fw-bold display-6 mt-2">Create your account</h1>
           </div>

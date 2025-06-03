@@ -26,6 +26,7 @@ const Home = () => {
             };
             fetchData();
         }, []); 
+        
     const location = useLocation();
     const username = location.state?.username;
 
