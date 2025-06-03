@@ -13,7 +13,7 @@ import AddEventAdmin from "./pages/AddEventAdmin";
 import EventsPageAdmin from "./pages/EventsPageAdmin";
 import PersonalProfile from "./pages/PersonalProfile";
 import UpdateUser from "./pages/UpdateUser";
-
+import MyReservations from "./pages/MyReservations";
 
 
 
@@ -39,6 +39,7 @@ function AppContent() {
         <Route path="/EventsPageAdmin" element = {<EventsPageAdmin/>} />
         <Route path="/PersonalProfile/:username" element={<PersonalProfile/>} />
         <Route path="/UpdateUser" element = {<UpdateUser />} />
+        <Route path="/reservations/:username" element={<MyReservations/>} />
       </Routes>
        {!shouldHideHeader && <Footer />}
     </div>
