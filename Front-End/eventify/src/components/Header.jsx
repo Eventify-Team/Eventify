@@ -60,7 +60,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
                   </button>
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
                     <li><Link className="dropdown-item" to= {`/PersonalProfile/${username}`}>Profile</Link></li>
-                    <li><Link className="dropdown-item" to="/reservations">My Reservations</Link></li>
+                    <li><Link className="dropdown-item" to={`/reservations/${username}`}>My Reservations</Link></li>
                     <li><hr className="dropdown-divider" /></li>
                     <li><button className="dropdown-item" onClick={() => {setIsLoggedIn(false); navigate("/LogIn");
                     }}>Logout</button></li>
