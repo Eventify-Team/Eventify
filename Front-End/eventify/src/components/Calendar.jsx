@@ -1,11 +1,9 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import "../App.css"; 
+import icon from"../Images/blue.png"
 
-const Calendar = () => {
+const Calendar = ({ eventDates }) => {
 
-
-
- 
   const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
@@ -15,41 +13,39 @@ const Calendar = () => {
 
   const currYear = date.getFullYear();
   const currMonth = date.getMonth();
-  const currDay = date.getDate();
 
   const firstDayOfMonth = new Date(currYear, currMonth, 1).getDay();
   const lastDateOfMonth = new Date(currYear, currMonth + 1, 0).getDate();
   const lastDayOfMonth = new Date(currYear, currMonth, lastDateOfMonth).getDay();
   const lastDateOfLastMonth = new Date(currYear, currMonth, 0).getDate();
 
-  const [events, setEvents] = useState([{
-    date: new Date(currYear,currMonth,currDay+1) 
-  }
-]);
+  const [events, setEventDates] = useState([]);
 
-  // setEvents(prev => [...prev, { 
-  //  date: ""
-  // }
-  // ]);
+  useEffect(() => {
+    setEventDates(eventDates.map(str => {
+      const [day, month, year] = str.split("-").map(Number);
+      return new Date(year, month - 1, day);
+    }));
+  }, [eventDates]);
 
   const generateCalendarDays = () => {
     
     let days = [
     ];
 
-    let flag = true;
-
     for (let i = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1; i > 0; i--) {
       days.push(<li className="inactive">{lastDateOfLastMonth - i + 1}</li>);
+      
     }
 
     for (let i = 1; i <= lastDateOfMonth; i++) {
 
       days.push(
-        <li className={(events.some(event =>
-          event.date.getFullYear() === currYear &&
-          event.date.getMonth() === currMonth &&
-          event.date.getDate() === i)) ? "active" : ""}>
+        <li style={{ backgroundImage: (events.some(event =>
+          event.getFullYear() === currYear &&
+          event.getMonth() === currMonth &&
+          event.getDate() === i)) ? `url(${icon})` : '', color: "black", backgroundSize: '70px', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}>
+
           {i}
         </li>
       );
@@ -74,14 +70,14 @@ const Calendar = () => {
   };
 
   return (
-    <div className="calendar-container">
-      <div className="header">
-        <span className="prevnext" onClick={handlePrev} id="prev">&#8249;</span>
+    <div className="calendar-container shadow">
+      <div className="header" style={{backgroundColor: '#145DA0'}}>
+        <span className="prevnext shadow" onClick={handlePrev} id="prev" style={{borderRadius: '50%', width: '20px', textAlign: 'center', backgroundColor: '#2E8BC0'}}>&#8249;</span>
         <span className="this-month">{months[currMonth]} {currYear}</span>
-        <span className="prevnext" onClick={handleNext} id="next">&#8250;</span>
+        <span className="prevnext shadow" onClick={handleNext} id="next" style={{borderRadius: '50%', width: '20px', textAlign: 'center', backgroundColor: '#2E8BC0'}}>&#8250;</span>
       </div>
-      <div style={{backgroundColor: '#edf5f6'}}>
-        <ul className="daysList" style={{marginBottom: '0', paddingLeft: '0'}}>
+      <div className="daysgrid">
+        <ul className="daysList" style={{backgroundColor: '#2E8BC0'}}>
             <li>Mon</li>
             <li>Tue</li>
             <li>Wed</li>
@@ -90,10 +86,11 @@ const Calendar = () => {
             <li>Sat</li>
             <li>Sun</li>
         </ul>
+        <ul className="days" style={{color: '#2E8BC0'}}>
+              {generateCalendarDays()}
+        </ul>
+         
       </div>
-      <ul className="days" >
-        {generateCalendarDays()}
-      </ul>
     </div>
   );
 };

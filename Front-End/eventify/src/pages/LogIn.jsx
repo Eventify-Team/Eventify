@@ -38,7 +38,7 @@ const LogIn = ({ setIsLoggedIn }) => {
       if (user) {
         setIsLoggedIn(true);
         localStorage.setItem("username", user.username);
-        navigate('/Home');
+        navigate('/Home', { state: { items: user } });
       }
       else{
         //if exists -> error message

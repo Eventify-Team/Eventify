@@ -28,7 +28,7 @@ function AppContent() {
       {!shouldHideHeader && <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} 
       <Routes>
         <Route path="/" element={<Navigate to="/Home" />} />
-        <Route path="/Home" element={<Home />} />
+        <Route path="/Home" element={<Home isLoggedIn={isLoggedIn}/>} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/LogIn" element={<LogIn setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/SignUp" element={<SignUp />} />
