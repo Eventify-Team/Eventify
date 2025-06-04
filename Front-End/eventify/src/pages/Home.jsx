@@ -56,13 +56,6 @@
                             }
                         }, [items, items1]);
 
-                        useEffect(() => {
-                            console.log("User's attended events:", userEvents);
-                        }, [userEvents]);
-                    
-            
-        
-
     
     return (
         <>

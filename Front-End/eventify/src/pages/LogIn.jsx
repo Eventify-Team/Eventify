@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import transparent_logo from '../images/transparent_logo.png';
 
 
 const LogIn = ({ setIsLoggedIn }) => {
   const [users, setUsers] = useState([]);
+  const [admins, setAdmins] = useState([]);
+
    const [formData, setFormData] = useState({ 
       username: '',
       password: ''});
@@ -21,6 +24,9 @@ const LogIn = ({ setIsLoggedIn }) => {
                      const response = await fetch("http://localhost:8080/admin/getAllUsers");
                      const result = await response.json();
                      setUsers(result);
+                     const response1 = await fetch("http://localhost:8080/admin/getAllAdmins");
+                     const result1 = await response1.json();
+                     setAdmins(result1);
                  } catch (error) {
                      console.error("Error fetching users:", error);
                  }
@@ -33,12 +39,19 @@ const LogIn = ({ setIsLoggedIn }) => {
       const submitHandler = async (e) => {
       e.preventDefault();
       const user = users.find(u => u.username === formData.username && u.password === formData.password);
+      const admin = admins.find(a => a.username === formData.username && a.password === formData.password);
+
 
       // if not -> user creation
       if (user) {
         setIsLoggedIn(true);
         localStorage.setItem("username", user.username);
         navigate('/Home', { state: { items: user } });
+      }
+      else if(admin){
+        setIsLoggedIn(true);
+        localStorage.setItem("adminUsername", admin.username);
+        navigate('/Home');
       }
       else{
         //if exists -> error message
@@ -54,7 +67,7 @@ return(
             {/* Κάνουμε το logo link προς Home */}
             <Link to="/Home">
               <img
-                src="/transparent_logo.png"
+                src={transparent_logo}
                 alt="Logo"
                 style={{ height: "100px" }}
                 className="mb-2"

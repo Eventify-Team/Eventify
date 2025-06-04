@@ -9,6 +9,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
 
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
+  const adminUsername = localStorage.getItem("adminUsername");
 
 
   return (
@@ -19,7 +20,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
 
              {/* Logo */}
         <Link to="/" className="d-flex align-items-center text-decoration-none">
-          <img src="/transparent_logo.png" alt="Logo" className="me-2" style={{ height: "60px", maxHeight: "10vh" }} />
+          <img src="/logoTransparent.png" alt="Logo" className="me-2" style={{ height: "30px", maxHeight: "10vh" }} />
           
         </Link>
 
@@ -60,7 +61,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
                   </button>
                   <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
                     <li><Link className="dropdown-item" to= {`/PersonalProfile/${username}`}>Profile</Link></li>
-                    <li><Link className="dropdown-item" to="/reservations">My Reservations</Link></li>
+                    <li><Link className="dropdown-item" to={`/reservations/${username}`}>My Reservations</Link></li>
                     <li><hr className="dropdown-divider" /></li>
                     <li><button className="dropdown-item" onClick={() => {setIsLoggedIn(false); navigate("/LogIn");
                     }}>Logout</button></li>
