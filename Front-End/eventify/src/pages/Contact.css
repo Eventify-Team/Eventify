@@ -1,0 +1,84 @@
+.header-img {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.header-img img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+}
+
+
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Fields*/
+.contact-form .form-control {
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+  border-color: #34a3da;
+  box-shadow: 0 0 0 0.2rem rgba(52, 163, 218, 0.25);
+}
+
+
+.contact-form .form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+
+.contact-form .btn-primary {
+  background-color: #34a3da;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form .btn-primary:hover {
+  background-color: #2b8ab8;
+}
+
+
+.alert {
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.alert-success {
+  background-color: #d1f3e0;
+  color: #20633f;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

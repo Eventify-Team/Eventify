@@ -16,6 +16,7 @@ import UpdateUser from "./pages/UpdateUser";
 import MyReservations from "./pages/MyReservations";
 import AdminProfile from "./pages/AdminProfile";
 import UpdateAdmin from "./pages/UpdateAdmin";
+import Contact from "./pages/Contact";
 
 
 
@@ -44,6 +45,7 @@ function AppContent() {
         <Route path="/reservations/:username" element={<MyReservations/>} />
         <Route path="/AdminProfile/:username" element={<AdminProfile />} />
         <Route path="/UpdateAdmin" element = {<UpdateAdmin />} />
+        <Route path="/Contact" element = {<Contact />} />
 
 
       </Routes>
