@@ -34,7 +34,9 @@ const Contact = () => {
     return (
         <>
             <div className="header-img">
-                <img src={contactImg}  alt="Contact" />
+                <img src={contactImg}
+                alt="Contact"
+                style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
             </div>
 
             <div className='container py-5'>
