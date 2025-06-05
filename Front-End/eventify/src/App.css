@@ -189,6 +189,49 @@ h1{
   display: contents;
 }
 
+/*header buttons*/
+
+.btn.btn-primary {
+  background-color: rgb(52, 163, 218) !important;
+  border-color: rgb(52, 163, 218) !important;
+  color: white !important;
+}
+
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:active {
+  background-color: rgb(42, 145, 195) !important;
+  border-color: rgb(42, 145, 195) !important;
+}
+
+.btn.btn-outline-primary {
+  color: rgb(52, 163, 218) !important;
+  border-color: rgb(52, 163, 218) !important;
+}
+
+.btn.btn-outline-primary:hover {
+  background-color: rgb(52, 163, 218) !important;
+  color: #fff !important;
+  border-color: rgb(52, 163, 218) !important;
+}
+
+
+.btn-outline-primary:hover {
+  background-color: rgb(52, 163, 218) !important;
+  border-color: rgb(52, 163, 218) !important;
+  color: white !important;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: rgb(52, 163, 218);
+  --bs-btn-border-color: rgb(52, 163, 218);
+  --bs-btn-hover-bg: rgb(52, 163, 218);
+  --bs-btn-hover-border-color: rgb(52, 163, 218);
+  --bs-btn-hover-color: white;
+}
+
+
+
 /* footer*/
 
 .shadow {
@@ -197,3 +240,4 @@ h1{
 .shadow:hover {
   transform: translateY(-5px);
 }
+

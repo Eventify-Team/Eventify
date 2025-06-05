@@ -49,7 +49,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
 
 
             {/* Navigation & User */}
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex align-items-center gap-3" >
               <nav className="d-none d-lg-flex gap-3">
                 <Link to="/Home" className="text-dark text-decoration-none nav-link">Home</Link>
                 <Link to="/AboutUs" className="text-dark text-decoration-none nav-link">About Us</Link>
@@ -83,8 +83,8 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
                   </ul>
                 </div>
               ) : (
-                <div className="d-flex gap-2">
-                  <Link to="/login" className="btn btn-outline-primary rounded-pill px-3">Login</Link>
+                <div className="d-flex gap-2" >
+                  <Link to="/login" className="btn btn-outline-primary rounded-pill px-3" >Login</Link>
                   <Link to="/signup" className="btn btn-primary rounded-pill px-3">Sign Up</Link>
                 </div>
               )}
