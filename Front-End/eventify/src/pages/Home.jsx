@@ -32,7 +32,20 @@
 
 
             const location = useLocation();
-            const user = location.state?.items;
+            const [user, setUser] = useState(null);
+
+            useEffect(() => {
+            const user1 = location.state?.items;
+            if (user1) {
+                setUser(user1);
+                localStorage.setItem("user", JSON.stringify(user1));
+            } else {
+                const stored = localStorage.getItem("user");
+                if (stored) {
+                setUser(JSON.parse(stored));
+                }
+            }
+            }, [location.state]);
             const [items1, setItems1] = useState([]);
                 useEffect(() => {
                     const fetchData = async () => {
