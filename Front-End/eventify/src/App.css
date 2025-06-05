@@ -4,6 +4,8 @@ html,body, #root {
   padding: 0;
   box-sizing: border-box;
   width: 100%;
+  background-color: #f8f9fa !important;
+
 }
 
 :root {
@@ -185,4 +187,13 @@ h1{
 
 .daysgrid ul{
   display: contents;
+}
+
+/* footer*/
+
+.shadow {
+  transition: transform 0.3s ease;
+}
+.shadow:hover {
+  transform: translateY(-5px);
 }
