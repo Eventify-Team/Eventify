@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
-import { useState} from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -17,6 +17,7 @@ import MyReservations from "./pages/MyReservations";
 import AdminProfile from "./pages/AdminProfile";
 import UpdateAdmin from "./pages/UpdateAdmin";
 import Contact from "./pages/Contact";
+import SearchResults from "./pages/SearchResults";
 
 
 
@@ -27,29 +28,33 @@ function AppContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div className="page-wrapper d-flex flex-column min-vh-100"> {/* fit to screen!!!!! */}
-     {/* {!shouldHideHeader && <Header />} */}
-      {!shouldHideHeader && <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} 
+      {/* {!shouldHideHeader && <Header />} */}
+      {!shouldHideHeader && <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
+      <main className="flex-grow-1"> 
       <Routes>
         <Route path="/" element={<Navigate to="/Home" />} />
-        <Route path="/Home" element={<Home isLoggedIn={isLoggedIn}/>} />
+        <Route path="/Home" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/LogIn" element={<LogIn setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/event/:id" element={<EventDetails />} />  {/* Λεπτομέρειες event */}
         <Route path="*" element={<NotFound404 />} />
-        <Route path="/AddEventAdmin" element={<AddEventAdmin/>} />
-        <Route path="/EventsPageAdmin" element = {<EventsPageAdmin/>} />
-        <Route path="/PersonalProfile/:username" element={<PersonalProfile/>} />
-        <Route path="/UpdateUser" element = {<UpdateUser />} />
-        <Route path="/reservations/:username" element={<MyReservations/>} />
+        <Route path="/AddEventAdmin" element={<AddEventAdmin />} />
+        <Route path="/EventsPageAdmin" element={<EventsPageAdmin />} />
+        <Route path="/PersonalProfile/:username" element={<PersonalProfile />} />
+        <Route path="/UpdateUser" element={<UpdateUser />} />
+        <Route path="/reservations/:username" element={<MyReservations />} />
         <Route path="/AdminProfile/:username" element={<AdminProfile />} />
-        <Route path="/UpdateAdmin" element = {<UpdateAdmin />} />
-        <Route path="/Contact" element = {<Contact />} />
+        <Route path="/UpdateAdmin" element={<UpdateAdmin />} />
+        <Route path="/Contact" element={<Contact />} />
+        <Route path="/search" element={<SearchResults />} />
+
 
 
       </Routes>
-       {!shouldHideHeader && <Footer />}
+      </main>
+      {!shouldHideHeader && <Footer />}
     </div>
   );
 }
