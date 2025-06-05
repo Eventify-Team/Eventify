@@ -16,6 +16,7 @@
         const [items, setItems] = useState([]);
         const [userEvents, setUserEvents] = useState([]);
 
+            //getting all events
             useEffect(() => {
                 const fetchData = async () => {
                     try {
@@ -34,6 +35,7 @@
             const location = useLocation();
             const [user, setUser] = useState(null);
 
+            //αποθηκευση στο localstorage για να μη χανεται μετα το refresh
             useEffect(() => {
             const user1 = location.state?.items;
             if (user1) {
