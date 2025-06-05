@@ -1,62 +1,182 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="el">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8" />
     <style>
+        @page {
+            size: A4 landscape;
+            margin: 0;
+        }
+
+        html { /* Προσθήκη για συνέπεια */
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            padding: 30px;
-            border: 2px solid #333;
-            max-width: 1000px;
-            max-height:fit-content;
-        }
-        .logo {
-            width: 150px;
-        }
-        .header {
-            text-align: center;
-        }
-        .info {
-            margin-top: 30px;
-            font-size: 16px;
-        }
-        .footer {
-            margin-top: 40px;
-            font-size: 12px;
-            text-align: center;
-            color: #999;
-        }
-        .qr_code{
-            justify-content: center;
+            background-color: #34a3da;
+            margin: 0;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
             display: flex;
+            flex-direction: column;
+            align-items: center; /* Αυτό θα έπρεπε να κεντράρει, αλλά θα ενισχύσουμε το wrapper */
+            box-sizing: border-box;
+            width: 100%;
+        }
 
+        .ticket-wrapper {
+            background-color: #e9f5f9;
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 970px;
+            box-sizing: border-box;
+            margin-left: auto;  /* ΝΕΑ ΠΡΟΣΘΗΚΗ ΓΙΑ ΚΕΝΤΡΑΡΙΣΜΑ */
+            margin-right: auto; /* ΝΕΑ ΠΡΟΣΘΗΚΗ ΓΙΑ ΚΕΝΤΡΑΡΙΣΜΑ */
+        }
+
+        table.ticket-layout {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td.left-column {
+            width: 58%;
+            vertical-align: top;
+            padding-right: 30px;
+            box-sizing: border-box;
+        }
+
+        td.right-column {
+            width: 42%;
+            vertical-align: top;
+            text-align: center;
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 190px;
+            height: auto;
+        }
+
+        .header strong {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        h1 {
+            text-align: left;
+            font-size: 38px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            color: #155a7a;
+        }
+
+        .details {
+            margin-top: 15px;
+        }
+
+        .details p {
+            margin: 11px 0;
+            font-size: 20px;
+            color: #34495e;
+        }
+        .details p strong {
+            color: #2c3e50;
+            margin-right: 8px;
+        }
+
+
+        .qr {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .qr p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .qr img {
+            width: 165px;
+            height: 165px;
+            border: 4px solid #ddeef3;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+
+        .event-img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #e0f2f7;
+            width: 100%; /* Το align-items:center του body θα το κεντράρει σωστά */
+            max-width: 970px; /* Προσθήκη max-width και στο footer για συνέπεια αν το κεντράρουμε με margin auto */
+            margin-left: auto; /* Προσθήκη και στο footer για σιγουριά */
+            margin-right: auto; /* Προσθήκη και στο footer για σιγουριά */
         }
     </style>
-    <title>Ticket</title>
 </head>
 <body>
-<div class="header">
-    <img src="data:image/png;base64,[[${logoBase64}]]" alt="logo" />
-    <h1>Εισιτήριο Εκδήλωσης</h1>
-</div>
+<div class="ticket-wrapper">
+    <table class="ticket-layout">
+        <tr>
+            <td class="left-column">
+                <div class="header">
+                    <img th:src="${logo}" alt="Logo" class="logo"/>
+                    <div><strong>Event Ticket</strong></div>
+                </div>
 
-<div class="info">
-    <p><strong>First Name:</strong> <span th:text="${name}"></span></p>
-    <p><strong>Last Name:</strong> <span th:text="${surname}"></span></p>
-    <p><strong>Event:</strong> <span th:text="${event}"></span></p>
-    <p><strong>Location:</strong> <span th:text="${location}"></span></p>
-    <p><strong>Description:</strong> <span th:text="${description}"></span></p>
-    <p><strong>Date &amp; Time:</strong> <span th:text="${date +' '+ time}"></span></p>
-    <p><strong>Ticket Price:</strong> <span th:text="${fee}"></span></p>
+                <h1 th:text="${event}">Event Title</h1>
 
-</div>
+                <div class="details">
+                    <p><strong>First Name:</strong> <span th:text="${name}">John</span></p>
+                    <p><strong>Last Name:</strong> <span th:text="${surname}">Doe</span></p>
+                    <p><strong>Location:</strong> <span th:text="${location}">Athens</span></p>
+                    <p><strong>Description:</strong> <span th:text="${description}">Live Jazz</span></p>
+                    <p><strong>Date:</strong> <span th:text="${date}">10/06/2025</span></p>
+                    <p><strong>Time:</strong> <span th:text="${time}">20:30</span></p>
+                    <p><strong>Price:</strong> <span th:text="${fee}">15.00</span> €</p>
+                </div>
+            </td>
 
-<div class = "qr_code">
-    <img src="data:image/png;base64,[[${qrBase64}]]" alt="qr"/>
+            <td class="right-column">
+                <img th:src="${eventImage}" alt="Event" class="event-img"/>
+                <div class="qr">
+                    <p>Scan to validate your ticket:</p>
+                    <img th:src="${qrCode}" alt="QR Code"/>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <div class="footer">
-    Σας ευχαριστούμε για την κράτησή σας.
-    <br/><br/>Eventify
+    © 2025 Eventify. All rights reserved.
 </div>
 </body>
 </html>
