@@ -10,7 +10,7 @@ const AboutUs = () => {
           <img
             src={AboutUsHeader}
             alt="About Us"
-            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
         <div className="container py-5">

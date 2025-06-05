@@ -40,7 +40,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
               <input
                 className="form-control me-2 rounded-pill px-3"
                 type="search"
-                placeholder="Search events..."
+                placeholder="Search..."
                 aria-label="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
