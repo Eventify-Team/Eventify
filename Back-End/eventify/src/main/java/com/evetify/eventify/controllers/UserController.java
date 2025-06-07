@@ -3,10 +3,14 @@ package com.evetify.eventify.controllers;
 import com.evetify.eventify.models.*;
 import com.evetify.eventify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -81,6 +85,24 @@ public class UserController {
     @DeleteMapping("/deleteReservation")
     public void deleteReservation (@RequestParam Long attendanceId){
         attendanceService.removeAttendance(attendanceId);
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody Map<String, String> credentials) {
+        String username = credentials.get("username");
+        String password = credentials.get("password");
+
+        User user = userService.getUserByUsername(username);
+
+        if (user != null && user.getPassword().equals(password)) {
+            Map<String, String> response = new HashMap<>();
+            response.put("username", username);
+            return ResponseEntity.ok(response);
+        }
+
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
 //    @DeleteMapping("/deleteReservation")

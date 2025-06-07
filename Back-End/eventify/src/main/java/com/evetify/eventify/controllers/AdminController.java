@@ -3,6 +3,8 @@ package com.evetify.eventify.controllers;
 import com.evetify.eventify.models.*;
 import com.evetify.eventify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -23,6 +25,10 @@ public class AdminController {
 
     @Autowired
     ReservationService reservationService;
+
+
+    @Autowired
+    JwtService jwtService;
 
 
     @PostMapping("/addAdmin")
@@ -141,4 +147,31 @@ public class AdminController {
     public List<User> getUsersForEvent(@RequestParam Long eventId){
         return eventService.getAllUsersForEvent(eventId);
     }
+
+    //για το login
+    @PostMapping("/login")
+    public ResponseEntity<?> loginAdmin(@RequestBody Map<String, String> credentials) {
+        String username = credentials.get("username");
+        String password = credentials.get("password");
+
+        Admin admin = adminService.getAdminByUsername(username);
+
+        if (admin != null && admin.getPassword().equals(password)) {
+            String token = jwtService.generateToken(username, "ADMIN");
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("token", token);
+            response.put("role", "ADMIN");
+            response.put("username", username);
+            return ResponseEntity.ok(response);
+
+        }
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    }
 }
+
+
+
+
+
