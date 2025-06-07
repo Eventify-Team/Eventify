@@ -32,7 +32,7 @@ const LogIn = ({ setIsLoggedIn }) => {
       localStorage.setItem("adminUsername", data.username);
       localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
-      navigate("/admin");
+      navigate("/AdminDashboard");
       return;
     }
   } catch (error) {

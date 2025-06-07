@@ -52,6 +52,7 @@ function AppContent() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/AdminDashboard" element={<AdminDashboard />} />
           <Route path="/AdminUsers" element={<AdminUsers />} />
+          <Route path="/AdminReservations" element={<MyReservations />} />
 
 
 
