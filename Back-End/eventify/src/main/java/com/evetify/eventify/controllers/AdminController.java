@@ -41,6 +41,12 @@ public class AdminController {
         adminService.RemoveAdmin(adminId);
     }
 
+    @DeleteMapping("/deleteUser")
+    public void deleteUser(@RequestParam Long userId) {
+        userService.RemoveUser(userId);
+    }
+
+
     @GetMapping("/getUser")
     public User getUser(@RequestParam Long userId){
         return userService.getUser(userId);

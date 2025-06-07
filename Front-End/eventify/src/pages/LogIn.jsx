@@ -1,77 +1,74 @@
 import '../App.css';
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import transparent_logo from '../images/transparent_logo.png';
 
-
 const LogIn = ({ setIsLoggedIn }) => {
-  const [users, setUsers] = useState([]);
-  const [admins, setAdmins] = useState([]);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: ''
+  });
 
-   const [formData, setFormData] = useState({ 
-      username: '',
-      password: ''});
+  const navigate = useNavigate();
 
-    const changeHandler = (e) => {
+  const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-   };
-    //Connection with DB, in order to take all the Users 
-     useEffect(() => {
-             const fetchData = async () => {
-                 try {
-                     const response = await fetch("http://localhost:8080/admin/getAllUsers");
-                     const result = await response.json();
-                     setUsers(result);
-                     const response1 = await fetch("http://localhost:8080/admin/getAllAdmins");
-                     const result1 = await response1.json();
-                     setAdmins(result1);
-                 } catch (error) {
-                     console.error("Error fetching users:", error);
-                 }
-             };
-             fetchData();
-         }, []);
-     
-      const navigate = useNavigate();
+  };
 
-      const submitHandler = async (e) => {
-      e.preventDefault();
-      const user = users.find(u => u.username === formData.username && u.password === formData.password);
-      const admin = admins.find(a => a.username === formData.username && a.password === formData.password);
+  const submitHandler = async (e) => {
+  e.preventDefault();
+
+  // Admin login
+  try {
+    const resAdmin = await fetch("http://localhost:8080/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (resAdmin.ok) {
+      const data = await resAdmin.json();
+      localStorage.setItem("adminUsername", data.username);
+      localStorage.setItem("token", data.token);
+      setIsLoggedIn(true);
+      navigate("/admin");
+      return;
+    }
+  } catch (error) {
+    console.error("Admin login error:", error);
+  }
+
+  // User login
+  try {
+    const resUser = await fetch("http://localhost:8080/user/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (resUser.ok) {
+      const data = await resUser.json();
+      localStorage.setItem("username", data.username);
+      setIsLoggedIn(true);
+      navigate("/Home");
+      return;
+    }
+  } catch (error) {
+    console.error("User login error:", error);
+  }
+
+  toast.error("Wrong Username or Password. Please Try Again!");
+};
 
 
-      // if not -> user creation
-      if (user) {
-        setIsLoggedIn(true);
-        localStorage.setItem("username", user.username);
-        navigate('/Home', { state: { items: user } });
-      }
-      else if(admin){
-        setIsLoggedIn(true);
-        localStorage.setItem("adminUsername", admin.username);
-        navigate('/Home');
-      }
-      else{
-        //if exists -> error message
-        toast.error('Wrong Username or Password. Please Try Again!');
-      }
-   };
-
-return(
+  return (
     <>
       <div className="login-page d-flex justify-content-center align-items-center">
         <div className="bg-white shadow rounded p-4" style={{ width: '100%', maxWidth: '400px' }}>
           <div className="text-center mb-4">
-            {/* Κάνουμε το logo link προς Home */}
             <Link to="/Home">
-              <img
-                src={transparent_logo}
-                alt="Logo"
-                style={{ height: "100px" }}
-                className="mb-2"
-              />
+              <img src={transparent_logo} alt="Logo" style={{ height: "100px" }} className="mb-2" />
             </Link>
             <h1 className="fw-bold display-6 mt-2">Log in</h1>
           </div>
@@ -90,24 +87,23 @@ return(
               Don't have an account? <Link to="/signup">Sign up</Link>
             </p>
           </form>
-          {/* format for the message succefully creation or not */}
+
           <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable={false}
-          pauseOnHover={false}
-          theme="light"
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable={false}
+            pauseOnHover={false}
+            theme="light"
           />
         </div>
       </div>
     </>
   );
 };
-  
 
 export default LogIn;

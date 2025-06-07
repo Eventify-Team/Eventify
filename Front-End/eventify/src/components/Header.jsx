@@ -50,44 +50,67 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
 
             {/* Navigation & User */}
             <div className="d-flex align-items-center gap-3" >
-              <nav className="d-none d-lg-flex gap-3">
-                <Link to="/Home" className="text-dark text-decoration-none nav-link">Home</Link>
-                <Link to="/AboutUs" className="text-dark text-decoration-none nav-link">About Us</Link>
-                <Link to="/events" className="text-dark text-decoration-none nav-link">Events</Link>
-                <Link to="/contact" className="text-dark text-decoration-none nav-link">Contact Us</Link>
-              </nav>
+              {adminUsername ? (
+  <>
+    <nav className="d-none d-lg-flex gap-3">
+      <Link to="/admin" className="text-dark text-decoration-none nav-link">Dashboard</Link>
+      <Link to="/admin/add-event" className="text-dark text-decoration-none nav-link">Προσθήκη Event</Link>
+      <Link to="/admin/users" className="text-dark text-decoration-none nav-link">Χρήστες</Link>
+    </nav>
+    <button className="btn btn-outline-danger rounded-pill px-3 ms-2"
+      onClick={() => {
+        localStorage.removeItem("adminUsername");
+        setIsLoggedIn(false);
+        navigate("/login");
+      }}
+    >
+      Logout
+    </button>
+  </>
+) : (
+  <>
+    <nav className="d-none d-lg-flex gap-3">
+      <Link to="/Home" className="text-dark text-decoration-none nav-link">Home</Link>
+      <Link to="/AboutUs" className="text-dark text-decoration-none nav-link">About Us</Link>
+      <Link to="/events" className="text-dark text-decoration-none nav-link">Events</Link>
+      <Link to="/contact" className="text-dark text-decoration-none nav-link">Contact Us</Link>
+    </nav>
 
-              {isLoggedIn ? (
-                <div className="dropdown">
-                  <button
-                    className="btn btn-light border rounded-circle p-0"
-                    type="button"
-                    id="dropdownUser"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <img
-                      src={userPic}
-                      alt="avatar"
-                      className="rounded-circle"
-                      style={{ width: "36px", height: "36px" }}
-                    />
-                  </button>
-                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
-                    <li><Link className="dropdown-item" to={`/PersonalProfile/${username}`}>Profile</Link></li>
-                    <li><Link className="dropdown-item" to={`/reservations/${username}`}>My Reservations</Link></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li><button className="dropdown-item" onClick={() => {
-                      setIsLoggedIn(false); navigate("/LogIn");
-                    }}>Logout</button></li>
-                  </ul>
-                </div>
-              ) : (
-                <div className="d-flex gap-2" >
-                  <Link to="/login" className="btn btn-outline-primary rounded-pill px-3" >Login</Link>
-                  <Link to="/signup" className="btn btn-primary rounded-pill px-3">Sign Up</Link>
-                </div>
-              )}
+    {isLoggedIn ? (
+      <div className="dropdown">
+        <button
+          className="btn btn-light border rounded-circle p-0"
+          type="button"
+          id="dropdownUser"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img
+            src={userPic}
+            alt="avatar"
+            className="rounded-circle"
+            style={{ width: "36px", height: "36px" }}
+          />
+        </button>
+        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+          <li><Link className="dropdown-item" to={`/PersonalProfile/${username}`}>Profile</Link></li>
+          <li><Link className="dropdown-item" to={`/reservations/${username}`}>My Reservations</Link></li>
+          <li><hr className="dropdown-divider" /></li>
+          <li><button className="dropdown-item" onClick={() => {
+            setIsLoggedIn(false);
+            navigate("/LogIn");
+          }}>Logout</button></li>
+        </ul>
+      </div>
+    ) : (
+      <div className="d-flex gap-2">
+        <Link to="/login" className="btn btn-outline-primary rounded-pill px-3">Login</Link>
+        <Link to="/signup" className="btn btn-primary rounded-pill px-3">Sign Up</Link>
+      </div>
+    )}
+  </>
+)}
+
             </div>
           </div>
         </div>
