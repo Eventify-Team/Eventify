@@ -241,3 +241,15 @@ h1{
   transform: translateY(-5px);
 }
 
+
+
+
+
+/*boxes admin dashboard */
+
+.card-body {
+  min-height: 180px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
