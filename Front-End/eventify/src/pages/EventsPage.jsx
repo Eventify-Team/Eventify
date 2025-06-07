@@ -55,6 +55,7 @@ function EventCard({ event }) {
         {/* <img src="/images/event1.jpg" alt={event.title} className="card-img-top" style={{ height: '180px', objectFit: 'cover' }} />  */}
         <div className="card-body d-flex flex-column justify-content-between" style={{ flexGrow: 1 }}>
           <div>
+            <img src={event.imageURL} alt={event.name} className="card-img-top" style={{ height: '180px', objectFit: 'cover' }}/>
             <p className="card-text text-muted mb-1">{event.date} {event.time}</p>
             <h5 className="card-title">{event.name}</h5>
             <p className="card-text">{event.location}</p>

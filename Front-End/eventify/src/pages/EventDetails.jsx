@@ -66,6 +66,7 @@ function EventDetails() {
 
   return (
     <div className="p-4">
+       {items.imageURL && (<img src={items.imageURL} alt={items.name} className="w-full h-64 object-cover my-4" style={{ maxHeight: '400px', width: '100%', objectFit: 'cover', borderRadius: '8px' }}/>)}
       <h1 className="text-2xl font-bold">{items.name}</h1>
       {/* <img src={event1} alt={items.name} className="w-full h-64 object-cover my-4" /> */}
       <p><strong>Date:</strong> {items.date} {items.time}</p>

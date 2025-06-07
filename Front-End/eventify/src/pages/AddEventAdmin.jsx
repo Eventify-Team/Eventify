@@ -16,6 +16,7 @@ const AddEventAdmin = () => {
         date: "",
         time: "",
         fee: "",
+        imageURL: "",
     });
 
     const dataToSend = {
@@ -90,6 +91,11 @@ const AddEventAdmin = () => {
                 <div className="mb-4">
                     <label className="form-label"><FaInfoCircle className="me-2" />Description</label>
                     <textarea className="form-control" name="description" value={formData.description} onChange={handleChange} rows={4} />
+                </div>
+
+                <div className="mb-4">
+                    <label className="form-label"><FaInfoCircle className="me-2" />Image URL</label>
+                    <text className="form-control" name="imageURL" value={formData.imageURL} onChange={handleChange} rows={4} />
                 </div>
 
                 <div className="text-end">
