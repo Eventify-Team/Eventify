@@ -53,9 +53,9 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
               {adminUsername ? (
   <>
     <nav className="d-none d-lg-flex gap-3">
-      <Link to="/admin" className="text-dark text-decoration-none nav-link">Dashboard</Link>
-      <Link to="/admin/add-event" className="text-dark text-decoration-none nav-link">Add Event</Link>
-      <Link to="/admin/users" className="text-dark text-decoration-none nav-link">Users</Link>
+      <Link to="/AdminDashboard" className="text-dark text-decoration-none nav-link">Dashboard</Link>
+      <Link to="/AddEventAdmin" className="text-dark text-decoration-none nav-link">Add Event</Link>
+      <Link to="/AdminUsers" className="text-dark text-decoration-none nav-link">Users</Link>
     </nav>
     <button className="btn btn-outline-danger rounded-pill px-3 ms-2"
       onClick={() => {

@@ -50,8 +50,8 @@ function AppContent() {
           <Route path="/UpdateAdmin" element={<UpdateAdmin />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/search" element={<SearchResults />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/AdminDashboard" element={<AdminDashboard />} />
+          <Route path="/AdminUsers" element={<AdminUsers />} />
 
 
 

@@ -41,7 +41,7 @@ const AdminDashboard = () => {
             <div className="card-body">
               <h5 className="card-title">Manage Users</h5>
               <p className="card-text">View all users, their emails, and reservations.</p>
-              <Link to="/admin/users" className="btn btn-primary mt-auto">
+              <Link to="/AdminUsers" className="btn btn-primary mt-auto">
                 <FaUsers className="me-2" /> View Users
               </Link>
 
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
             <div className="card-body">
               <h5 className="card-title">Reservations</h5>
               <p className="card-text">Manage all reservations made by users.</p>
-              <Link to="/admin/reservations" className="btn btn-primary mt-auto">
+              <Link to="/reservations/:*" className="btn btn-primary mt-auto">
                 <FaClipboardList className="me-2" /> View Reservations
               </Link>
 
