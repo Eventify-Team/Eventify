@@ -6,8 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 @RestController
@@ -79,6 +85,31 @@ public class AdminController {
     @PostMapping("/addEvent")
     public void addEvent(@RequestBody Event event){
         eventService.addEvent(event);
+    }
+
+    // Endpoint για upload εικόνας
+    @PostMapping("/uploadImage")
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+        try {
+            // Δημιουργία φακέλου αν δεν υπάρχει
+            Path uploadPath = Paths.get("eventify/uploaded-images/");
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // Αποθήκευση αρχείου με το original όνομα
+            String filename = file.getOriginalFilename();
+            Path filePath = uploadPath.resolve(filename);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Επιστροφή URL ή path της εικόνας
+            String fileUrl = "/images/" + filename;
+            return ResponseEntity.ok(fileUrl);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload image");
+        }
     }
 
     @PutMapping("/updateEvent")

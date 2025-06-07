@@ -17,6 +17,7 @@ public class Event {
     private String date;
     private String time;
     private double fee;
+    private String imageURL;
     @OneToMany(mappedBy = "event")
     private List<Attendance> attendances;
 
@@ -121,4 +122,7 @@ public class Event {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public void setImageURL(String url){this.imageURL = url;}
+    public String getImageURL(){return imageURL;}
 }
