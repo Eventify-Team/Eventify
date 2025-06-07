@@ -14,7 +14,7 @@ useEffect(() => {
   if (!admin) {
     navigate("/login");
   }
-}, [navigate]);
+}, [navigate]); 
 
 
   return (
@@ -28,7 +28,7 @@ useEffect(() => {
             <div className="card-body">
               <h5 className="card-title">Προσθήκη Event</h5>
               <p className="card-text">Δημιούργησε νέο event για να εμφανίζεται στους χρήστες.</p>
-              <Link to="/admin/add-event" className="btn btn-primary">Μετάβαση</Link>
+              <Link to="/AddEventAdmin" className="btn btn-primary">Μετάβαση</Link>
             </div>
           </div>
         </div>

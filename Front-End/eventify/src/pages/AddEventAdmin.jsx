@@ -53,47 +53,47 @@ const AddEventAdmin = () => {
             <h2>Δημιουργία Εκδήλωσης</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                <label className="form-label">Τίτλος Εκδήλωσης</label>
+                <label className="form-label">Title</label>
                 <input type="text" className="form-control" name="name" value={formData.name} onChange={handleChange} required />
                 </div>
 
                 <div className="mb-3">
-                <label className="form-label">Τοποθεσία</label>
+                <label className="form-label">Location</label>
                 <input type="text" className="form-control" name="location" value={formData.location} onChange={handleChange} required />
                 </div>
 
                 <div className="row mb-3">
                     <div className="col-md-6">
-                        <label className="form-label">Ημερομηνία</label>
+                        <label className="form-label">Date</label>
                         <input type="date" className="form-control" name="date" value={formData.date} onChange={handleChange} required />
                     </div>
                     <div className="col-md-6">
-                        <label className="form-label">Ώρα Έναρξης</label>
+                        <label className="form-label">Hour</label>
                         <input type="time" className="form-control" name="time" value={formData.time} onChange={handleChange} required />
                     </div>
                 </div>
 
                 <div className="mb-3">
-                <label className="form-label">Διάρκεια (λεπτά)</label>
+                <label className="form-label">Duration (min)</label>
                 <input type="number" className="form-control" name="duration" value={formData.duration} onChange={handleChange} />
                 </div>
 
                 <div className="mb-3">
-                <label className="form-label">Διαθέσιμες Θέσεις</label>
+                <label className="form-label">Capacity</label>
                 <input type="number" className="form-control" name="capacity" value={formData.capacity} onChange={handleChange} required min="1" />
                 </div>
 
                 <div className="mb-3">
-                <label className="form-label">Τιμή Εισιτηρίου (€)</label>
+                <label className="form-label">Fee (€)</label>
                 <input type="number" className="form-control" name="fee" value={formData.fee} onChange={handleChange} step="0.01" min="0" />
                 </div>
 
                 <div className="mb-3">
-                <label className="form-label">Περιγραφή</label>
+                <label className="form-label">Description</label>
                 <textarea className="form-control" name="description" value={formData.description} onChange={handleChange} />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Δημιουργία Εκδήλωσης</button>
+                <button type="submit" className="btn btn-primary">Create Event</button>
             </form>
         </div>
     );
