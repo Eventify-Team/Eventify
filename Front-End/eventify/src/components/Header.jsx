@@ -60,6 +60,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
     <button className="btn btn-outline-danger rounded-pill px-3 ms-2"
       onClick={() => {
         localStorage.removeItem("adminUsername");
+        localStorage.setItem("isLoggedIn", "false");
         setIsLoggedIn(false);
         navigate("/login");
       }}

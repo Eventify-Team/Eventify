@@ -29,6 +29,7 @@ const LogIn = ({ setIsLoggedIn }) => {
 
     if (resAdmin.ok) {
       const data = await resAdmin.json();
+      localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("adminUsername", data.username);
       localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
@@ -49,6 +50,7 @@ const LogIn = ({ setIsLoggedIn }) => {
 
     if (resUser.ok) {
       const data = await resUser.json();
+      localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("username", data.username);
       setIsLoggedIn(true);
       navigate("/Home");

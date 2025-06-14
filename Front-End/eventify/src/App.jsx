@@ -26,8 +26,10 @@ function AppContent() {
   const location = useLocation();
   const hideHeaderPaths = ["/login", "/signup"];
   const shouldHideHeader = hideHeaderPaths.includes(location.pathname.toLowerCase());
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  return (
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+      return localStorage.getItem("isLoggedIn") === "true";
+    }); 
+    return (
     <div className="page-wrapper d-flex flex-column min-vh-100"> {/* fit to screen!!!!! */}
       {/* {!shouldHideHeader && <Header />} */}
       {!shouldHideHeader && <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
