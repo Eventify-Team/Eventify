@@ -23,7 +23,7 @@ const Calendar = ({ eventDates }) => {
 
   useEffect(() => {
     setEventDates(eventDates.map(str => {
-      const [day, month, year] = str.split("-").map(Number);
+      const [year, month, day] = str.split("-").map(Number);
       return new Date(year, month - 1, day);
     }));
   }, [eventDates]);
