@@ -10,6 +10,11 @@ import {
   MDBTypography
 } from 'mdb-react-ui-kit';
 
+import { Box, Typography, Rating } from '@mui/material';
+
+
+
+
 function MyReservations() {
   // Extract the username from the URL parameters
   const { username } = useParams();
@@ -17,6 +22,10 @@ function MyReservations() {
   // State to store user's attendances and corresponding events
   const [attendances, setAttendances] = useState([]);
   const [events, setEvents] = useState([]);
+  const [userId, setUserId] = useState(null);
+  const [ratings, setRatings] = useState({}); // eventId -> rating value
+  const[rat, setRat] = useState([]);
+
 
   // useEffect runs when component mounts or username changes
   useEffect(() => {
@@ -26,6 +35,8 @@ function MyReservations() {
         const userRes = await fetch(`http://localhost:8080/admin/getUserByUsername/?username=${username}`);
         const userData = await userRes.json();
         const userId = userData.id;
+        setUserId(userData.id);
+
 
         // Step 2: Get all attendances for the retrieved user ID
         const attRes = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${userId}`);
@@ -37,6 +48,12 @@ function MyReservations() {
           console.log('Fetching eventId:', att.eventId); // log inside map
           return fetch(`http://localhost:8080/event/getEvent/?eventId=${att.eventId}`).then((res) => res.json());
         });
+        
+        // const ratings = await fetch(`http://localhost:8080/user/getUserRatingForEvent?eventId=${eveId}&userId=${userId}`);
+        // const ratdata = await ratings.json();
+        // console.log(ratdata);
+        // setRatings(ratdata);
+        
 
         const eventResults = await Promise.all(eventPromises); // Wait for all event fetches to complete
         setEvents(eventResults); // Save all fetched events to state
@@ -48,9 +65,31 @@ function MyReservations() {
     fetchUserAttendancesAndEvents(); // Invoke the async function
   }, [username]);
 
+const handleRatingChange = async (eventId, userId, newValue) => {
+  setRatings(prev => ({
+    ...prev,
+    [eventId]: newValue
+  }));
+
+  try {
+    // Send the rating to the backend
+    await fetch(
+      `http://localhost:8080/user/addRating?userId=${userId}&eventId=${eventId}&score=${newValue}`,
+      {
+        method: 'POST'
+      }
+    );
+    console.log(`Rating submitted: userId=${userId}, eventId=${eventId}, score=${newValue}`);
+  } catch (error) {
+    console.error('Error submitting rating:', error);
+  }
+};
+
   return (
+
     <section className="vh-100" style={{ backgroundColor: '#f4f5f7' }}>
       <MDBContainer className="py-5 h-100">
+        
         <MDBRow className="justify-content-center">
           <MDBCol lg="8">
             <h2 className="mb-4">My Event Attendances</h2>
@@ -70,6 +109,15 @@ function MyReservations() {
                     <MDBCardText><strong>Capacity:</strong> {event.capacity}</MDBCardText>
                     <MDBCardText><strong>Duration:</strong> {event.duration}'</MDBCardText>
                     <MDBCardText><strong>Fee:</strong> {event.fee}€</MDBCardText>
+                    {/* Rating Section */}
+                      <Box sx={{ '& > legend': { mt: 2 }, mt: 2 }}>
+                        <Typography component="legend">Rate this event</Typography>
+                        <Rating
+                          name={`rating-${event.id}`}
+                          value={ratings[event.id] || 0}
+                          onChange={(e, newValue) => handleRatingChange(event.id, userId, newValue)}
+                        />
+                      </Box>
                   </MDBCardBody>
                 </MDBCard>
               ))

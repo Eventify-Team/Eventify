@@ -55,6 +55,11 @@ public class UserController {
         return res;
     }
 
+    @GetMapping("/getUserRatingForEvent")
+    public Integer getUserRatingForEvent(@RequestParam Long eventId, @RequestParam Long userId){
+        return eventService.getUserRatingForEvent(eventId, userId);
+    }
+
     @GetMapping("/getEvent")
     public Event getEvent(@RequestParam Long eventId){
         Event event = eventService.getEvent(eventId);
