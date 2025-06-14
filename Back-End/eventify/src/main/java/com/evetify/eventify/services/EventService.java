@@ -105,6 +105,27 @@ public class EventService {
         return ratings;
     }
 
+    public Integer getUserRatingForEvent(Long eventId, Long userId){
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        Integer rating = 0;
+        if(!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        Optional<User> userOptional = userRepository.findById(userId);
+        if(!userOptional.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
+        User user = userOptional.get();
+        List<Attendance> attendances = event.getAttendances();
+        for(Attendance att : attendances){
+            if(att.getRating()!=null){
+                if(att.getUserId().equals(userId) && att.getEventId().equals(eventId)){
+                    rating = att.getRating();
+                }
+            }
+        }
+        return rating;
+    }
+
     public List<User> getAllUsersForEvent(Long eventId){
         List<User> users = new ArrayList<>();
         Optional<Event> eventopt = eventRepository.findById(eventId);
