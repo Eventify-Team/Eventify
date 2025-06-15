@@ -126,6 +126,25 @@ public class EventService {
         return rating;
     }
 
+    public double getAverageRatingForEvent(Long eventId){
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if(!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        List<Attendance> attendances = event.getAttendances();
+        double sum=0.0;
+        int count=0;
+        for(Attendance att : attendances){
+            Integer score = att.getRating();
+            if (score != null) {
+                sum += score;
+                count++;
+            }
+        }
+        if (count == 0) return 0.0;
+        return sum / (double) count;
+    }
+
     public List<User> getAllUsersForEvent(Long eventId){
         List<User> users = new ArrayList<>();
         Optional<Event> eventopt = eventRepository.findById(eventId);

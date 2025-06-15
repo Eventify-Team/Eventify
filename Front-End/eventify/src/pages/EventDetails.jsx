@@ -6,8 +6,17 @@ import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import '../App.css';
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBCardText,
+  MDBTypography
+} from 'mdb-react-ui-kit';
 
-
+import { Box, Typography, Rating } from '@mui/material';
 
 
 
@@ -19,6 +28,7 @@ function EventDetails() {
   const [user, setUser] = useState(null);
   const { id } = useParams();
   const username = localStorage.getItem("username");
+  const [avgRating, setAvgRating] = useState(null);
   useEffect(() => {
           const fetchData = async () => {
               try {
@@ -33,6 +43,9 @@ function EventDetails() {
                   const response2 = await fetch(`http://localhost:8080/admin/getUserByUsername/?username=${usernameExists}`);
                   const result2 = await response2.json();
                   setUser(result2);
+                  const rating = await fetch(`http://localhost:8080/event/getAvgRatingForEvent/?eventId=${eventId}`);
+                  const avg = await rating.json();
+                  setAvgRating(avg);
               } catch (error) {
                   console.error("Error fetching event:", error);
               }
@@ -75,6 +88,27 @@ function EventDetails() {
       <p><strong>Capacity:</strong> {items.capacity}</p>
       <p><strong>Duration:</strong> {items.duration}'</p>
       <p><strong>Fee:</strong> {items.fee}€</p>
+      {/*Field for average rating of event
+      {avgRating > 0 ? (
+        <p><strong>Average rating:</strong> {avgRating}/5</p>
+      ) : (
+        <p><em>No ratings yet.</em></p>
+      )}*/}
+    
+      {avgRating !== null && avgRating > 0  ? (
+        <Box sx={{ '& > legend': { mt: 2 }, mt: 2, mb:2 }}>
+          <Typography component="legend">Average Rating</Typography>
+          <Rating
+            name={`avg-rating-${items.id}`}
+            value={avgRating}
+            precision={0.5}
+            readOnly
+          />
+        </Box>
+      ) : (
+        <Typography>No ratings yet</Typography>
+      )}
+
       {/* format for the message succefully creation or not */}
           <ToastContainer
           position="top-center"
