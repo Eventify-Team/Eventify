@@ -51,6 +51,7 @@ const LogIn = ({ setIsLoggedIn }) => {
     if (resUser.ok) {
       const data = await resUser.json();
       localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
       setIsLoggedIn(true);
       navigate("/Home");

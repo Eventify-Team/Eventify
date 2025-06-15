@@ -29,6 +29,8 @@ public class UserController {
     @Autowired
     AttendanceService attendanceService;
 
+    @Autowired
+    JwtService jwtService;
     @PostMapping("/addUser")
     public void addUser(@RequestBody User user){
         userService.addUser(user);
@@ -101,7 +103,10 @@ public class UserController {
         User user = userService.getUserByUsername(username);
 
         if (user != null && user.getPassword().equals(password)) {
+            String token = jwtService.generateToken(username, "USER");
             Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+            response.put("role", "USER");
             response.put("username", username);
             return ResponseEntity.ok(response);
         }

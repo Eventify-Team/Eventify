@@ -16,27 +16,27 @@
         const [items, setItems] = useState([]);
         const [userEvents, setUserEvents] = useState([]);
 
-            //getting all events
-            useEffect(() => {
-                const fetchData = async () => {
-                    try {
-                        const response = await fetch("http://localhost:8080/event/getAllEvents");
-                        const result = await response.json();
-                        setItems(result);
-                    } catch (error) {
-                        console.error("Error fetching events:", error);
-                    }
-                };
-                fetchData();
-            }, []); 
+        //getting all events
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch("http://localhost:8080/event/getAllEvents");
+                    const result = await response.json();
+                    setItems(result);
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                }
+            };
+            fetchData();
+        }, []); 
 
 
 
-            const location = useLocation();
-            const [user, setUser] = useState(null);
+        const location = useLocation();
+        const [user, setUser] = useState(null);
 
-            //αποθηκευση στο localstorage για να μη χανεται μετα το refresh
-            useEffect(() => {
+        //αποθηκευση στο localstorage για να μη χανεται μετα το refresh
+        useEffect(() => {
             const user1 = location.state?.items;
             if (user1) {
                 setUser(user1);
@@ -44,32 +44,38 @@
             } else {
                 const stored = localStorage.getItem("user");
                 if (stored) {
-                setUser(JSON.parse(stored));
+                    setUser(JSON.parse(stored));
                 }
             }
-            }, [location.state]);
-            const [items1, setItems1] = useState([]);
-                useEffect(() => {
-                    const fetchData = async () => {
-                        try {
-                                const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.id}`);
-                                const result = await response.json();
-                                setItems1(result);
-                            } catch (error) {
-                                console.error("Error fetching events:", error);
-                            }
-                        };
-                        fetchData();
-                    }, [user]);
+            const token = localStorage.getItem("token");
+            if (!token) {
+                // Αν δεν υπάρχει token, κάνε redirect στο login
+                navigate("/login");
+            }
+        }, [location.state]);
+            
+        const [items1, setItems1] = useState([]);
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.id}`);
+                    const result = await response.json();
+                    setItems1(result);
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                }
+            };
+            fetchData();
+        }, [user]);
 
 
-                        useEffect(() => {
-                            if (items.length > 0 && items1.length > 0) {
-                                const eventsid = new Set(items1.map(att => att.eventId));
-                                const filtered = items.filter(event => eventsid.has(event.id));
-                                setUserEvents(filtered);
-                            }
-                        }, [items, items1]);
+        useEffect(() => {
+            if (items.length > 0 && items1.length > 0) {
+                    const eventsid = new Set(items1.map(att => att.eventId));
+                    const filtered = items.filter(event => eventsid.has(event.id));
+                    setUserEvents(filtered);
+            }
+        }, [items, items1]);
 
     
     return (
