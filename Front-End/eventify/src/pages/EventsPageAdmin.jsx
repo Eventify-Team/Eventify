@@ -54,7 +54,7 @@ function EventCard({ event }) {
       }, []);  
 
   return (
-    <Link to={`/event/${event.id}`} style={{ textDecoration: 'none', color: 'inherit', flex: '0 0 23%', maxWidth: '23%' }}>
+    <Link to={`/AdminEventsDetails/${event.id}`} style={{ textDecoration: 'none', color: 'inherit', flex: '0 0 23%', maxWidth: '23%' }}>
       <div className="card mb-3 shadow-sm d-flex flex-column" style={{ cursor: 'pointer', height: '100%' }}>
         {/* <img src="/images/event1.jpg" alt={event.title} className="card-img-top" style={{ height: '180px', objectFit: 'cover' }} />  */}
         <div className="card-body d-flex flex-column justify-content-between" style={{ flexGrow: 1 }}>

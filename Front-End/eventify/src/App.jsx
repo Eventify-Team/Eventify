@@ -20,6 +20,7 @@ import Contact from "./pages/Contact";
 import SearchResults from "./pages/SearchResults";
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
+import EventDetailsAdmin from "./pages/EventDetailsAdmin";
 
 
 function AppContent() {
@@ -55,6 +56,7 @@ function AppContent() {
           <Route path="/AdminDashboard" element={<AdminDashboard />} />
           <Route path="/AdminUsers" element={<AdminUsers />} />
           <Route path="/AdminReservations" element={<MyReservations />} />
+          <Route path="/AdminEventsDetails/:id" element={<EventDetailsAdmin />} />
 
 
 
