@@ -40,10 +40,10 @@ public class TicketPdfService {
         try {
             // Load images from resources
             String logoPath = new ClassPathResource("static/images/logo.png").getFile().toURI().toString();
-            String eventImagePath = new ClassPathResource("static/images/event.jpg").getFile().toURI().toString();
+            //String eventImagePath = new ClassPathResource("static/images/event.jpg").getFile().toURI().toString();
 
             context.setVariable("logo", logoPath);
-            context.setVariable("eventImage", eventImagePath);
+           // context.setVariable("eventImage", eventImagePath);
 
             // Generate QR code
             String qrText = "https://eventify.com/validate/" + attendanceId;
@@ -71,14 +71,14 @@ public class TicketPdfService {
             if (!downloadsDir.exists()) {
                 boolean created = downloadsDir.mkdirs();
                 if (!created) {
-                    System.out.println("❌ Failed to create Downloads folder.");
+                    System.out.println("Failed to create Downloads folder.");
                 }
             }
 
             if (downloadsDir.exists() && downloadsDir.isDirectory()) {
                 File destFile = new File(downloadsDir, String.format("ticket-attendance-%d.pdf", attendanceId));
                 Files.copy(tempFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("📥 File saved to Downloads: " + destFile.getAbsolutePath());
+                System.out.println("File saved to Downloads: " + destFile.getAbsolutePath());
             }
 
             return tempFile;

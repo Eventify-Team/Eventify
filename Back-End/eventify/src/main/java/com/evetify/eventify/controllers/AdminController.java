@@ -1,6 +1,7 @@
 package com.evetify.eventify.controllers;
 
 import com.evetify.eventify.models.*;
+import com.evetify.eventify.repositories.AttendanceRepository;
 import com.evetify.eventify.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,9 @@ public class AdminController {
 
     @Autowired
     ReservationService reservationService;
+
+    @Autowired
+    AttendanceService attendanceService;
 
 
     @Autowired
@@ -113,15 +117,8 @@ public class AdminController {
     }
 
     @PutMapping("/updateEvent")
-    public Event updateEvent (@RequestParam Long eventId, @RequestParam (required = false) String name,
-                              @RequestParam (required = false) String description,
-                              @RequestParam (required = false) Integer duration,
-                              @RequestParam (required = false) String location,
-                              @RequestParam (required = false) Integer capacity,
-                              @RequestParam (required = false) String date,
-                              @RequestParam (required = false) String time,
-                              @RequestParam (required = false) Double fee){
-        Event event = eventService.updateEvent(eventId, name, description, duration, location, capacity, date, time, fee);
+    public Event updateEvent (@RequestBody Event event){
+        eventService.updateEvent(event);
         return event;
     }
 
@@ -205,6 +202,12 @@ public class AdminController {
         }
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+    }
+
+    @GetMapping("/getAllAttendances")
+    public List<Attendance> getAllAttendances(){
+        List<Attendance> attendances = attendanceService.getAllAttendances();
+        return attendances;
     }
 }
 

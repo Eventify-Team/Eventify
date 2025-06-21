@@ -8,13 +8,50 @@
     //import events from '../dataTest/events.js';
     import Calendar from '../components/Calendar';
     import { useState, useEffect} from "react";
-    import { useLocation } from "react-router-dom";
+    import { useLocation, useNavigate } from "react-router-dom";
 
 
     const Home = ({ isLoggedIn }) => {
+
+        const navigate = useNavigate();
+
         //Connection with DB, in order to take the Events
         const [items, setItems] = useState([]);
         const [userEvents, setUserEvents] = useState([]);
+
+        //Validation of token
+        useEffect(() => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+            navigate("/login");
+            return;
+            }
+
+            const validateToken = async () => {
+            try {
+                const res = await fetch("http://localhost:8080/user/validate", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                });
+
+                if (!res.ok) {
+                // Token είναι άκυρο ή έχει λήξει
+                localStorage.clear();
+                setIsLoggedIn(false);
+                navigate("/login");
+                }
+            } catch (error) {
+                console.error("Token validation error:", error);
+                localStorage.clear();
+                setIsLoggedIn(false); 
+                navigate("/login");
+            }
+            };
+
+            validateToken();
+        }, []);
 
         //getting all events
         useEffect(() => {
@@ -56,6 +93,7 @@
             
         const [items1, setItems1] = useState([]);
         useEffect(() => {
+            if (!user || !user.id) return; 
             const fetchData = async () => {
                 try {
                     const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.id}`);
@@ -76,6 +114,11 @@
                     setUserEvents(filtered);
             }
         }, [items, items1]);
+
+        const upcomingEvents = items
+                .filter(event => new Date(event.date) >= new Date()) // keeps only future events
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
+                .slice(0, 3); // keeping the upcoming 3
 
     
     return (
@@ -113,7 +156,7 @@
                     </h2>
                     <div className="container py-4">
                         <div className="row g-2">
-                            {items.map((event) => (
+                            {upcomingEvents.map((event) => (
                                 <div key={event.id} className="col-12 col-md-6 col-lg-4">
                                     <EventCard event={event} />
                                 </div>

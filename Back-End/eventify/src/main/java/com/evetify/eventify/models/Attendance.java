@@ -19,10 +19,10 @@ public class Attendance {
     @JsonIgnore
     private Event event;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Rating rating;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Reservation reservation;
     public Attendance(User user, Event event) {
         this.user= user;

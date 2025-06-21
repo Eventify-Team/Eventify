@@ -115,6 +115,25 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
     }
 
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("Missing or invalid Authorization header");
+        }
+
+        String token = authHeader.substring(7); // αφαιρεί το "Bearer "
+
+        boolean isValid = jwtService.validateToken(token);
+
+        if (isValid) {
+            return ResponseEntity.ok("Token is valid");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
+        }
+    }
+
 //    @DeleteMapping("/deleteReservation")
 //    public void cancelReservation (@RequestParam Long userId, @RequestParam Long eventId){
 //        userService.cancelReservation(userId, eventId);
