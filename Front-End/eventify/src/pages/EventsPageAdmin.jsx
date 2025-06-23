@@ -21,6 +21,15 @@ function EventsPage() {
         fetchData();
     }, []);  
 
+    //Expired events
+    const expiredEvents = items
+                .filter(event => new Date(event.date) < new Date()) // keeps only expired events
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
+    //Future events
+    const upcomingEvents = items
+                .filter(event => new Date(event.date) >= new Date()) // keeps only future events
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
+
   return (
     <div className="container my-4">
       <h1 className="mb-4">Events</h1>
@@ -28,8 +37,15 @@ function EventsPage() {
       <Link to="/AddEventAdmin">
         <button className="btn btn-primary mb-5">Add Event</button>
       </Link>
+      <h4 className="mb-3">Upcoming Events</h4>
       <div className="d-flex flex-wrap gap-3">
-        {items.map(event => (
+        {upcomingEvents.map(event => (
+          <EventCard key={event.id} event={event} />
+        ))}
+      </div>
+      <h4 className="text-secondary mb-3 mt-3">Expired Events</h4>
+      <div className="d-flex flex-wrap gap-3">
+        {expiredEvents.map(event => (
           <EventCard key={event.id} event={event} />
         ))}
       </div>

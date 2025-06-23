@@ -152,7 +152,7 @@
                         Life is made of moments. Make yours count.
                     </p>
                     <h2 style={{marginBottom: '50px'}}>
-                        Only a few tickets left..
+                        Upcoming events...
                     </h2>
                     <div className="container py-4">
                         <div className="row g-2">
@@ -171,13 +171,13 @@
                             </h2>
                             <div style={{}}>
                                 <Calendar eventDates={userEvents.map(e => e.date)} />
+                               
                             </div>
                         
                         </>
                         
                     )}
-                    
-                    
+            
                     </div >
                     
         </>

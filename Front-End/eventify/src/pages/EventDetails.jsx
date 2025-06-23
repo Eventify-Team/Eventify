@@ -93,6 +93,16 @@ function EventDetails() {
       <p><strong>Duration:</strong> {items.duration}'</p>
       <p><strong>Fee:</strong> {items.fee}€</p>*/}
 
+       {/* Image */}
+        {items.imageURL && (
+        <img
+          src={items.imageURL}
+          alt={items.name}
+          className="img-fluid rounded mb-4"
+          style={{ maxHeight: "400px", objectFit: "cover", width: "100%" }}
+        />
+        )}
+
       {/* Name */}
         <div className="mb-3 row">
             <label className="col-sm-2 col-form-label">Name</label>

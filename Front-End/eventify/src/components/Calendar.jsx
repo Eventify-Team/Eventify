@@ -21,6 +21,7 @@ const Calendar = ({ eventDates }) => {
 
   const [events, setEventDates] = useState([]);
 
+  
   useEffect(() => {
     setEventDates(eventDates.map(str => {
       const [year, month, day] = str.split("-").map(Number);
