@@ -6,21 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="35b9cb63-e94b-4d0c-896c-1703b7e460e8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/controllers/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/controllers/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/Attendance.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/Attendance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/DataInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/repositories/AttendanceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/repositories/AttendanceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/AttendanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/AttendanceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/EventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/JwtService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/JwtService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/TicketPdfService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/TicketPdfService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/components/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/pages/AddEventAdmin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/pages/AddEventAdmin.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventDetails.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventsPageAdmin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventsPageAdmin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/pages/Home.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

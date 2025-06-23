@@ -21,6 +21,7 @@ import SearchResults from "./pages/SearchResults";
 import AdminDashboard from './pages/AdminDashboard';
 import AdminUsers from './pages/AdminUsers';
 import EventDetailsAdmin from "./pages/EventDetailsAdmin";
+import AdminReservations from "./pages/AdminReservations";
 
 
 function AppContent() {
@@ -55,7 +56,7 @@ function AppContent() {
           <Route path="/search" element={<SearchResults />} />
           <Route path="/AdminDashboard" element={<AdminDashboard />} />
           <Route path="/AdminUsers" element={<AdminUsers />} />
-          <Route path="/AdminReservations" element={<MyReservations />} />
+          <Route path="/AdminReservations" element={<AdminReservations />} />
           <Route path="/AdminEventsDetails/:id" element={<EventDetailsAdmin />} />
 
 
