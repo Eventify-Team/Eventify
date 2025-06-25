@@ -21,6 +21,15 @@ function EventsPage() {
         fetchData();
     }, []);  
 
+    //Expired events
+    const expiredEvents = items
+                .filter(event => new Date(event.date) < new Date()) // keeps only expired events
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
+    //Future events
+    const upcomingEvents = items
+                .filter(event => new Date(event.date) >= new Date()) // keeps only future events
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
+
   return (
     <div className="container my-4">
       <h1 className="mb-4">Events</h1>
@@ -28,8 +37,15 @@ function EventsPage() {
       <Link to="/AddEventAdmin">
         <button className="btn btn-primary mb-5">Add Event</button>
       </Link>
+      <h4 className="mb-3">Upcoming Events</h4>
       <div className="d-flex flex-wrap gap-3">
-        {items.map(event => (
+        {upcomingEvents.map(event => (
+          <EventCard key={event.id} event={event} />
+        ))}
+      </div>
+      <h4 className="text-secondary mb-3 mt-3">Expired Events</h4>
+      <div className="d-flex flex-wrap gap-3">
+        {expiredEvents.map(event => (
           <EventCard key={event.id} event={event} />
         ))}
       </div>
@@ -54,7 +70,7 @@ function EventCard({ event }) {
       }, []);  
 
   return (
-    <Link to={`/event/${event.id}`} style={{ textDecoration: 'none', color: 'inherit', flex: '0 0 23%', maxWidth: '23%' }}>
+    <Link to={`/AdminEventsDetails/${event.id}`} style={{ textDecoration: 'none', color: 'inherit', flex: '0 0 23%', maxWidth: '23%' }}>
       <div className="card mb-3 shadow-sm d-flex flex-column" style={{ cursor: 'pointer', height: '100%' }}>
         {/* <img src="/images/event1.jpg" alt={event.title} className="card-img-top" style={{ height: '180px', objectFit: 'cover' }} />  */}
         <div className="card-body d-flex flex-column justify-content-between" style={{ flexGrow: 1 }}>

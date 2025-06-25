@@ -20,12 +20,17 @@ function EventsPage() {
         };
         fetchData();
     }, []);  
+  //Keeping only future events
+  const upcomingEvents = items
+                .filter(event => new Date(event.date) >= new Date()) // keeps only future events
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
+
 
   return (
     <div className="container my-4">
       <h1 className="mb-4">Events</h1>
       <div className="d-flex flex-wrap gap-3">
-        {items.map(event => (
+        {upcomingEvents.map(event => (
           <EventCard key={event.id} event={event} />
         ))}
       </div>
