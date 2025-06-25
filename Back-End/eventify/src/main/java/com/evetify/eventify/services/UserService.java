@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,15 +23,19 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    AttendanceRepository attendanceRepository;
 
     public User addUser(User user) {
         userRepository.save(user);
         return user;
     }
 
+    @Transactional
     public List<User> RemoveUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
+            attendanceRepository.deleteAllByUser(user.get());
             userRepository.deleteById(userId);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!");

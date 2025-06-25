@@ -8,68 +8,124 @@
     //import events from '../dataTest/events.js';
     import Calendar from '../components/Calendar';
     import { useState, useEffect} from "react";
-    import { useLocation } from "react-router-dom";
+    import { useLocation, useNavigate } from "react-router-dom";
 
 
     const Home = ({ isLoggedIn }) => {
+
+        const navigate = useNavigate();
+
         //Connection with DB, in order to take the Events
         const [items, setItems] = useState([]);
         const [userEvents, setUserEvents] = useState([]);
 
-            //getting all events
-            useEffect(() => {
-                const fetchData = async () => {
-                    try {
-                        const response = await fetch("http://localhost:8080/event/getAllEvents");
-                        const result = await response.json();
-                        setItems(result);
-                    } catch (error) {
-                        console.error("Error fetching events:", error);
-                    }
-                };
-                fetchData();
-            }, []); 
+        //Validation of token
+        useEffect(() => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+            navigate("/login");
+            return;
+            }
+
+            const validateToken = async () => {
+            try {
+                const res = await fetch("http://localhost:8080/user/validate", {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                });
+
+                if (!res.ok) {
+                // Token είναι άκυρο ή έχει λήξει
+                localStorage.clear();
+                isLoggedIn(false);
+                navigate("/login");
+                }
+            } catch (error) {
+                console.error("Token validation error:", error);
+                localStorage.clear();
+                isLoggedIn(false); 
+                navigate("/login");
+            }
+            };
+
+            validateToken();
+        }, []);
+
+        //getting all events
+        useEffect(() => {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch("http://localhost:8080/event/getAllEvents");
+                    const result = await response.json();
+                    setItems(result);
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                }
+            };
+            fetchData();
+        }, []); 
 
 
 
-            const location = useLocation();
-            const [user, setUser] = useState(null);
+        const location = useLocation();
+        const [user, setUser] = useState(null);
 
-            //αποθηκευση στο localstorage για να μη χανεται μετα το refresh
-            useEffect(() => {
+        //αποθηκευση στο localstorage για να μη χανεται μετα το refresh
+        useEffect(() => {
             const user1 = location.state?.items;
             if (user1) {
+                console.log("hell")
                 setUser(user1);
                 localStorage.setItem("user", JSON.stringify(user1));
             } else {
                 const stored = localStorage.getItem("user");
                 if (stored) {
-                setUser(JSON.parse(stored));
+                    setUser(JSON.parse(stored));
                 }
             }
-            }, [location.state]);
-            const [items1, setItems1] = useState([]);
-                useEffect(() => {
-                    const fetchData = async () => {
-                        try {
-                                const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.id}`);
-                                const result = await response.json();
-                                setItems1(result);
-                            } catch (error) {
-                                console.error("Error fetching events:", error);
-                            }
-                        };
-                        fetchData();
-                    }, [user]);
+            
+            const token = localStorage.getItem("token");
+            if (!token) {
+                // Αν δεν υπάρχει token, κάνε redirect στο login
+                navigate("/login");
+            }
+        }, [location.state]);
+            
+        const [items1, setItems1] = useState([]);
+        
+        useEffect(() => {
+            if (!user || !user.UserID) return; 
+
+            const userId = user.UserID;
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.UserID}`);
+                    const result = await response.json();
+                    
+                    setItems1(result);
+                } catch (error) {
+                    console.error("Error fetching events:", error);
+                }
+            };
+            fetchData();
+        }, [user]);
 
 
-                        useEffect(() => {
-                            if (items.length > 0 && items1.length > 0) {
-                                const eventsid = new Set(items1.map(att => att.eventId));
-                                const filtered = items.filter(event => eventsid.has(event.id));
-                                setUserEvents(filtered);
-                            }
-                        }, [items, items1]);
+        useEffect(() => {
+            if (items.length > 0 && items1.length > 0) {
+                    const eventsid = new Set(items1.map(att => att.eventId));
+                    const filtered = items.filter(event => eventsid.has(event.id));
+                    setUserEvents(filtered);
+            }
+        }, [items, items1]);
+
+        const upcomingEvents = items
+                .filter(event => new Date(event.date) >= new Date()) // keeps only future events
+                .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
+                .slice(0, 3); // keeping the upcoming 3
+                
 
     
     return (
@@ -103,11 +159,11 @@
                         Life is made of moments. Make yours count.
                     </p>
                     <h2 style={{marginBottom: '50px'}}>
-                        Only a few tickets left..
+                        Upcoming events...
                     </h2>
                     <div className="container py-4">
                         <div className="row g-2">
-                            {items.map((event) => (
+                            {upcomingEvents.map((event) => (
                                 <div key={event.id} className="col-12 col-md-6 col-lg-4">
                                     <EventCard event={event} />
                                 </div>
@@ -122,13 +178,14 @@
                             </h2>
                             <div style={{}}>
                                 <Calendar eventDates={userEvents.map(e => e.date)} />
+                                    
+                               
                             </div>
                         
                         </>
                         
                     )}
-                    
-                    
+            
                     </div >
                     
         </>

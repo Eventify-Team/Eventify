@@ -50,10 +50,13 @@ const LogIn = ({ setIsLoggedIn }) => {
 
     if (resUser.ok) {
       const data = await resUser.json();
+    
       localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("token", data.token);
       localStorage.setItem("username", data.username);
+      localStorage.setItem("UserID", data.UserID);
       setIsLoggedIn(true);
-      navigate("/Home");
+      navigate("/Home", { state: { items: data } });
       return;
     }
   } catch (error) {

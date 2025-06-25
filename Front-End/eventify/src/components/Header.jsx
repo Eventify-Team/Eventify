@@ -54,7 +54,7 @@ function Header({ isLoggedIn, setIsLoggedIn }) {
   <>
     <nav className="d-none d-lg-flex gap-3">
       <Link to="/AdminDashboard" className="text-dark text-decoration-none nav-link">Dashboard</Link>
-      <Link to="/AddEventAdmin" className="text-dark text-decoration-none nav-link">Add Event</Link>
+      <Link to="/EventsPageAdmin" className="text-dark text-decoration-none nav-link">Events</Link>
       <Link to="/AdminUsers" className="text-dark text-decoration-none nav-link">Users</Link>
     </nav>
     <button className="btn btn-outline-danger rounded-pill px-3 ms-2"

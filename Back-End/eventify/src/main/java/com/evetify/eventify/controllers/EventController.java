@@ -58,6 +58,10 @@ public class EventController {
         return reservations;
     }
 
+    @GetMapping("/getAvgRatingForEvent")
+    public double getAvgRatingForEvent(@RequestParam Long eventId){
+        return eventService.getAverageRatingForEvent(eventId);
+    }
 //    @PostMapping("/addEvent")
 //    public void addEvent(@RequestBody Event event){
 //        eventService.addEvent(event);

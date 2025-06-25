@@ -83,4 +83,8 @@ public class AttendanceService {
         return attendance.getReservation().isValid();
     }
 
+    public List<Attendance> getAllAttendances(){
+        return attendanceRepository.findAll();
+    }
+
 }

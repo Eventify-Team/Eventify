@@ -7,17 +7,37 @@ const AdminReservations = () => {
   const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
-    const fetchReservations = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/admin/getAllReservations");
+        const [attRes, userRes, eventRes] = await Promise.all([
+          axios.get("http://localhost:8080/admin/getAllAttendances"),
+          axios.get("http://localhost:8080/admin/getAllUsers"),
+          axios.get("http://localhost:8080/admin/getAllEvents")
+        ]);
 
-        setReservations(response.data);
+        const attendances = attRes.data;
+        const users = userRes.data;
+        const events = eventRes.data;
+
+        // Maps for easier search
+        const userMap = new Map(users.map(user => [user.id, user.username]));
+        const eventMap = new Map(events.map(event => [event.id, { name: event.name, date: event.date }]));
+
+        // Combining data
+        const enrichedReservations = attendances.map(att => ({
+          id: att.id,
+          userName: userMap.get(att.userId) || "Unknown User",
+          eventName: eventMap.get(att.eventId)?.name || "Unknown Event",
+          eventDate: eventMap.get(att.eventId)?.date || "Unknown Date"
+        }));
+
+        setReservations(enrichedReservations);
       } catch (error) {
-        console.error("Failed to fetch reservations:", error);
+        console.error("Failed to fetch data:", error);
       }
     };
 
-    fetchReservations();
+    fetchData();
   }, []);
 
   const handleSort = (field) => {
@@ -42,19 +62,19 @@ const AdminReservations = () => {
         <table className="table table-bordered table-hover align-middle">
           <thead className="table-light">
             <tr>
-              <th onClick={() => handleSort("user.username")} style={{ cursor: "pointer" }}>User</th>
               <th onClick={() => handleSort("id")} style={{ cursor: "pointer" }}>Reservation ID</th>
-              <th onClick={() => handleSort("date")} style={{ cursor: "pointer" }}>Date</th>
-              <th onClick={() => handleSort("event.name")} style={{ cursor: "pointer" }}>Event Name</th>
+              <th onClick={() => handleSort("eventDate")} style={{ cursor: "pointer" }}>Date</th>
+              <th onClick={() => handleSort("userName")} style={{ cursor: "pointer" }}>User</th>
+              <th onClick={() => handleSort("eventName")} style={{ cursor: "pointer" }}>Event Name</th>
             </tr>
           </thead>
           <tbody>
             {sortedReservations.map(res => (
               <tr key={res.id}>
-                <td>{res.user?.username ?? 'N/A'}</td>
                 <td>{res.id}</td>
-                <td>{res.date}</td>
-                <td>{res.event?.name ?? 'N/A'}</td>
+                <td>{res.eventDate}</td>
+                <td>{res.userName}</td>
+                <td>{res.eventName}</td>
               </tr>
             ))}
           </tbody>

@@ -11,12 +11,12 @@ public class Event {
     private Long id;
     private String name;
     private String description;
-    private int duration;
+    private Integer duration;
     private String location;
-    private int capacity;
+    private Integer capacity;
     private String date;
     private String time;
-    private double fee;
+    private Double fee;
     private String imageURL;
     @OneToMany(mappedBy = "event")
     private List<Attendance> attendances;
@@ -63,11 +63,11 @@ public class Event {
         this.description = description;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -79,7 +79,7 @@ public class Event {
         this.location = location;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
@@ -87,11 +87,11 @@ public class Event {
         this.capacity = capacity;
     }
 
-    public double getFee() {
+    public Double getFee() {
         return fee;
     }
 
-    public void setFee(double fee) {
+    public void setFee(Double fee) {
         this.fee = fee;
     }
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -20,6 +21,10 @@ public class EventService {
     EventRepository eventRepository;
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AttendanceRepository attendanceRepository;
+
 
 
     public List<Event> getAllEvents(){
@@ -33,10 +38,13 @@ public class EventService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
     }
 
+    @Transactional
     public List<Event> removeEvent(Long eventId) {
         Optional<Event> event = eventRepository.findById(eventId);
         if(!event.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+
+        attendanceRepository.deleteAllByEvent(event.get());
         eventRepository.deleteById(eventId);
 
         return eventRepository.findAll();
@@ -47,30 +55,30 @@ public class EventService {
         return event;
     }
 
-    public Event updateEvent(Long eventId, String name, String description, Integer duration, String location, Integer capacity, String date, String time, Double fee){
-        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+    public Event updateEvent(Event event){
+        Optional<Event> optionalEvent = eventRepository.findById(event.getId());
         if(!optionalEvent.isPresent())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
-        Event event = optionalEvent.get();
-        if(name != null)
-            event.setName(name);
-        if(description != null)
-            event.setDescription(description);
-        if(duration != null)
-            event.setDuration(duration);
-        if(location != null)
-            event.setLocation(location);
-        if(capacity != null)
-            event.setCapacity(capacity);
-        if(date != null)
-            event.setDate(date);
-        if(time != null)
-            event.setTime(time);
-        if(fee != null)
-            event.setFee(fee);
+        Event event2 = optionalEvent.get();
+        if(event.getName() != null)
+            event2.setName(event.getName());
+        if(event.getDescription() != null)
+            event2.setDescription(event.getDescription() );
+        if(event.getDuration() != null)
+            event2.setDuration(event.getDuration() );
+        if(event.getLocation() != null)
+            event2.setLocation(event.getLocation());
+        if(event.getCapacity()!= null)
+            event2.setCapacity(event.getCapacity());
+        if(event.getDate() != null)
+            event2.setDate(event.getDate());
+        if(event2.getTime() != null)
+            event2.setTime(event.getTime());
+        if(event.getFee() != null)
+            event2.setFee(event.getFee());
 
-        eventRepository.save(event);
-        return event;
+        eventRepository.save(event2);
+        return event2;
     }
 
     public List<Event> getEventWithName(String eventName) {
@@ -124,6 +132,25 @@ public class EventService {
             }
         }
         return rating;
+    }
+
+    public double getAverageRatingForEvent(Long eventId){
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if(!optionalEvent.isPresent())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Not Found");
+        Event event = optionalEvent.get();
+        List<Attendance> attendances = event.getAttendances();
+        double sum=0.0;
+        int count=0;
+        for(Attendance att : attendances){
+            Integer score = att.getRating();
+            if (score != null) {
+                sum += score;
+                count++;
+            }
+        }
+        if (count == 0) return 0.0;
+        return sum / (double) count;
     }
 
     public List<User> getAllUsersForEvent(Long eventId){
