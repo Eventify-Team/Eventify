@@ -76,7 +76,6 @@
         useEffect(() => {
             const user1 = location.state?.items;
             if (user1) {
-                console.log("hell")
                 setUser(user1);
                 localStorage.setItem("user", JSON.stringify(user1));
             } else {
@@ -98,7 +97,6 @@
         useEffect(() => {
             if (!user || !user.UserID) return; 
 
-            const userId = user.UserID;
             const fetchData = async () => {
                 try {
                     const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.UserID}`);
