@@ -39,13 +39,13 @@
                 if (!res.ok) {
                 // Token είναι άκυρο ή έχει λήξει
                 localStorage.clear();
-                setIsLoggedIn(false);
+                isLoggedIn(false);
                 navigate("/login");
                 }
             } catch (error) {
                 console.error("Token validation error:", error);
                 localStorage.clear();
-                setIsLoggedIn(false); 
+                isLoggedIn(false); 
                 navigate("/login");
             }
             };
@@ -84,6 +84,7 @@
                     setUser(JSON.parse(stored));
                 }
             }
+            
             const token = localStorage.getItem("token");
             if (!token) {
                 // Αν δεν υπάρχει token, κάνε redirect στο login
@@ -92,12 +93,15 @@
         }, [location.state]);
             
         const [items1, setItems1] = useState([]);
+        
         useEffect(() => {
-            if (!user || !user.id) return; 
+            if (!user || !user.UserID) return; 
+
             const fetchData = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.id}`);
+                    const response = await fetch(`http://localhost:8080/user/getAttendancesForUser?userId=${user.UserID}`);
                     const result = await response.json();
+                    
                     setItems1(result);
                 } catch (error) {
                     console.error("Error fetching events:", error);
@@ -119,6 +123,7 @@
                 .filter(event => new Date(event.date) >= new Date()) // keeps only future events
                 .sort((a, b) => new Date(a.date) - new Date(b.date)) // sorting
                 .slice(0, 3); // keeping the upcoming 3
+                
 
     
     return (
@@ -171,6 +176,7 @@
                             </h2>
                             <div style={{}}>
                                 <Calendar eventDates={userEvents.map(e => e.date)} />
+                                    
                                
                             </div>
                         

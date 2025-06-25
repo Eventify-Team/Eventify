@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35b9cb63-e94b-4d0c-896c-1703b7e460e8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/DataInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/models/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/repositories/AttendanceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/repositories/AttendanceRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eventify/src/main/java/com/evetify/eventify/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventDetails.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventDetails.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventsPageAdmin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Front-End/eventify/src/pages/EventsPageAdmin.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +16,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Vagiakos&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Vagiakos/Eventify.git&quot;,
+    &quot;accountId&quot;: &quot;80c20cdf-672a-4902-a49f-9c42e4e9c050&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -28,20 +36,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.EventifyApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Eva/Desktop/Uni/8th semester/Eventify/Back-End&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.EventifyApplication.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Merging main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/rizoulisvagios/Desktop/Eventify/Back-End",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

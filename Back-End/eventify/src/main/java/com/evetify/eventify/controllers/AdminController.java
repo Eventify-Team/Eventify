@@ -75,8 +75,8 @@ public class AdminController {
     @PutMapping("/updateAdmin")
     public Admin updateAdmin(@RequestParam Long adminId, @RequestParam (required = false) String lastName,
                              @RequestParam (required = false) String firstName,
-                           @RequestParam (required = false) String password,
-                           @RequestParam (required = false) String email){
+                             @RequestParam (required = false) String password,
+                             @RequestParam (required = false) String email){
         Admin admin = adminService.updateAdmin(adminId, lastName, firstName, password,email);
         return admin;
     }
@@ -210,8 +210,3 @@ public class AdminController {
         return attendances;
     }
 }
-
-
-
-
-

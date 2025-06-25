@@ -18,7 +18,7 @@ export default function PersonalProfile() {
           const fetchData = async () => {
               try {
                   const usernameExists = String(username);
-                  const response = await fetch(`http://localhost:8080/admin/getUserByUsername/?username=${usernameExists}`);
+                  const response = await fetch(`http://localhost:8080/admin/getUserByUsername/?username=${encodeURIComponent(usernameExists)}`);
                   const result = await response.json();
                   setItems(result);
               } catch (error) {

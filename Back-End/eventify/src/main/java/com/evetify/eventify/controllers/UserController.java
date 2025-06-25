@@ -104,10 +104,11 @@ public class UserController {
 
         if (user != null && user.getPassword().equals(password)) {
             String token = jwtService.generateToken(username, "USER");
-            Map<String, String> response = new HashMap<>();
+            Map<String, Object> response = new HashMap<>();
             response.put("token", token);
             response.put("role", "USER");
             response.put("username", username);
+            response.put("UserID", user.getId());
             return ResponseEntity.ok(response);
         }
 

@@ -43,7 +43,7 @@ public class TicketPdfService {
             //String eventImagePath = new ClassPathResource("static/images/event.jpg").getFile().toURI().toString();
 
             context.setVariable("logo", logoPath);
-           // context.setVariable("eventImage", eventImagePath);
+            // context.setVariable("eventImage", eventImagePath);
 
             // Generate QR code
             String qrText = "https://eventify.com/validate/" + attendanceId;
