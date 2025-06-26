@@ -39,13 +39,13 @@
                 if (!res.ok) {
                 // Token είναι άκυρο ή έχει λήξει
                 localStorage.clear();
-                isLoggedIn(false);
+                isLoggedIn = false;
                 navigate("/login");
                 }
             } catch (error) {
                 console.error("Token validation error:", error);
                 localStorage.clear();
-                isLoggedIn(false); 
+                isLoggedIn = false; 
                 navigate("/login");
             }
             };
