@@ -28,7 +28,7 @@ This project is an event management system that allows users to browse available
  4. Frontend Setup (React)
     1. Navigate to the `frontend` directory.
     2. Install packages:<br>
-           ``` npm i mdb-react-ui-kit --legacy-peer-deps (package 1)<br>```
+           ``` npm i mdb-react-ui-kit --legacy-peer-deps (package 1)```<br>
            ```npm install @mui/material @emotion/react @emotion/styled --legacy-peer-deps (package 2)```
     4. Install dependencies:
           npm install
